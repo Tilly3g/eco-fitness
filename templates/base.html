@@ -58,8 +58,8 @@
     </head>
 
     <body class="text-center">
-        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-            <header class="masthead mb-auto">
+        <div class="row no-margin container-fluid">
+            <header class="masthead mb-auto container-fluid rounded-bottom">
                 <div class="inner">
                     <h3 class="masthead-brand">Eco <strong>Fitness</strong></h3>
                     <nav class="nav nav-masthead justify-content-center">
@@ -69,20 +69,22 @@
                     </nav>
                 </div>
             </header>
+            <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
 
-    {% if messages %}
-        <div class="message-container"></div>
-    {% endif %} 
-        
-    {% block page_header %} 
-    {% endblock %} 
-        
-    {% block content %} 
-    {% endblock %}
+            {% if messages %}
+                <div class="message-container"></div>
+            {% endif %} 
+            
+            {% block page_header %} 
+            {% endblock %} 
+            
+            {% block content %} 
+            {% endblock %}
 
-        <footer class="mastfoot mt-auto">
-            <div class="inner">Footer</div>
-        </footer>
+                <footer class="mastfoot mt-auto">
+                    <div class="inner">Footer</div>
+                </footer>
+            </div>
         </div>
 
     {% block postloadjs %} 
