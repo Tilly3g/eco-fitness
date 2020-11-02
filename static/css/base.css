@@ -30,11 +30,17 @@ a:hover {
  * Base structure
  */
 
-html,
-body {
-    height: 100%;
+html {
+    height: auto;
     width: 100%;
     background-color: #333;
+}
+
+@media (min-width: 992px) {
+  html,
+  body {
+        height: 100%;
+  }
 }
 
 body {
@@ -121,6 +127,18 @@ body {
   }
 }
 
+@media (max-width: 285px) {
+    .hide-on-xs {
+        display: none;
+    }
+}
+
+/*
+ * Home page
+ */
+.paragraph-margin {
+    margin-bottom: 10%;
+}
 
 /*
  * Cover
