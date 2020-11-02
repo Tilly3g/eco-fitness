@@ -57,7 +57,7 @@ body {
 }
 
 /*
- * Header
+ * Nav bar
  */
 .masthead {
     margin-bottom: 2rem;
@@ -68,6 +68,7 @@ body {
 }
 
 .masthead-brand {
+    margin-top: 1rem;
     margin-bottom: 0;
     color: #fff
 }
@@ -77,21 +78,38 @@ body {
     font-weight: 700;
     color: rgba(255, 255, 255, .5);
     background-color: transparent;
-    border-bottom: .25rem solid transparent;
-}
-
-.nav-masthead .nav-link:hover,
-.nav-masthead .nav-link:focus {
-    border-bottom-color: rgba(255, 255, 255, .25);
 }
 
 .nav-masthead .nav-link + .nav-link {
     margin-left: 1rem;
 }
 
+.add-margin {
+    margin-left: 1rem;
+}
+
 .nav-masthead .active {
     color: #fff;
-    border-bottom-color: #fff;
+}
+
+.nav-link:hover {
+    color: #fff;
+}
+
+.dropdown-item {
+    color: #000;
+    text-shadow: none;
+}
+
+.dropdown-item {
+    color: #000;
+    text-shadow: none;
+}
+
+.dropdown-item:hover {
+    color: #000;
+    text-shadow: none;
+    width: auto;
 }
 
 @media (min-width: 48em) {

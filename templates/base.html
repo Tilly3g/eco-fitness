@@ -26,6 +26,8 @@
         crossorigin="anonymous"
         />
         <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/cover/">
+        <!-- font awesome CSS -->
+        <script src="https://kit.fontawesome.com/5297ed100d.js" crossorigin="anonymous"></script>
         <!-- Own CSS -->
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% endblock %} 
@@ -61,11 +63,54 @@
         <div class="row no-margin container-fluid">
             <header class="masthead mb-auto container-fluid rounded-bottom">
                 <div class="inner">
-                    <h3 class="masthead-brand">Eco <strong>Fitness</strong></h3>
+                    <a href="#"><h3 class="masthead-brand">Eco <strong>Fitness</strong></h3></a>
                     <nav class="nav nav-masthead justify-content-center">
-                        <a class="nav-link active" href="#">Home</a>
-                        <a class="nav-link" href="#">Features</a>
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link active" href="#" id="profile-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="text-center">
+                                <div><i class="far fa-lg fa-user-circle"></i></div>
+                                <p class="">Profile</p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu border-0" aria-labelledby="profile-options">
+                            {% if request.user.is_authenticated %}
+                                {% if request.user.is_superuser %}
+                                    <a href="#" class="dropdown-item">Product Management</a>
+                                {% endif %}
+                                <a href="" class="dropdown-item">My Profile</a>
+                                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                            {% else %}
+                                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                            {% endif %}
+                        </div>
+                    {% if request.user.is_authenticated %}
+                        <a class="nav-link" href="#">
+                            <div class="text-center add-margin">
+                                <div><i class="far fa-list-alt fa-lg"></i></div>
+                                <p class="my-0">Food Diary
+                                </p>
+                            </div>      
+                        </a>
+                    {% endif %}
+                        <a class="nav-link" href="">
+                            <div class="text-center">
+                                <div><i class="fas fa-lg fa-shopping-cart"></i></div>
+                                <p class="my-0">
+                                    {% if grand_total %}
+                                        £{{ grand_total|floatformat:2 }}
+                                    {% else %}
+                                        £0.00
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </a>
+                        <a class="nav-link" href="#">
+                            <div class="text-center">
+                                <div><i class="fas fa-home fa-lg"></i></div>
+                                <p class="my-0">Home
+                                </p>
+                            </div>     
+                        </a>
                     </nav>
                 </div>
             </header>
@@ -82,7 +127,9 @@
             {% endblock %}
 
                 <footer class="mastfoot mt-auto">
-                    <div class="inner">Footer</div>
+                    <div class="inner">
+                        <a href="#">Contact</a>
+                    </div>
                 </footer>
             </div>
         </div>
