@@ -6,22 +6,30 @@
 	{% endblock %}
 	
 	{% block content %}
-	    <p class="lead font-weight-bold paragraph-margin">Keep track of your calorie intake, including macros, per meal.</p>
-    {% if request.user.is_authenticated %}
-        <div class="container">
+        <div class="container-fluid overlay rounded">
             <div class="row">
-                <div class="col">
-                    {{ foods }}
+                <div class="col-12">
+	                <p class="lead font-weight-bold paragraph-margin">Keep track of your calorie intake, including macros, per meal.</p>
                 </div>
+    {% if request.user.is_authenticated %}
+                <div class="col-lg-2">
+                    <p class="font-weight-bold paragraph-margin">Snacks</p>
+                </div>
+                <div class="col-lg-2">
+                    <p class="font-weight-bold paragraph-margin">Breakfast</p>
+                </div>
+                <div class="col-lg-2">
+                    <p class="font-weight-bold paragraph-margin">Lunch</p>
+                </div>
+                <div class="col-lg-2">
+                    <p class="font-weight-bold paragraph-margin">Dinner</p>
+                </div>
+    {% else %}
+                <div class="col-12">
+                    <p class="font-weight-bold paragraph-margin"><a class="index-link" href="{% url 'account_signup' %}">Register</a> or <a class="index-link" href="{% url 'account_login' %}">Login</a> to start tracking your meals</p>
+                </div>
+    {% endif %}
             </div>
         </div>
-        <p class="font-weight-bold paragraph-margin">Snacks</p>
-        <p class="font-weight-bold paragraph-margin">Breakfast</p>
-        <p class="font-weight-bold paragraph-margin">Lunch</p>
-        <p class="font-weight-bold paragraph-margin">Dinner</p>
-        <p class="font-weight-bold paragraph-margin">Water intake</p>
-    {% else %}
-        <p class="font-weight-bold paragraph-margin"><a class="index-link" href="{% url 'account_signup' %}">Register</a> or <a class="index-link" href="{% url 'account_login' %}">Login</a> to start tracking your meals</p>
-    {% endif %}
 
 	{% endblock %}
