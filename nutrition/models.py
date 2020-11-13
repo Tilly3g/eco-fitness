@@ -4,6 +4,10 @@ from django.db import models
 
 
 class Category(models.Model):
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+
     name = models.CharField(max_length=254)
     friendly_name = models.CharField(max_length=254)
 
@@ -15,6 +19,10 @@ class Category(models.Model):
 
 
 class Nutrition(models.Model):
+
+    class Meta:
+        verbose_name_plural = 'Nutrition'
+
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
     Food = models.CharField(max_length=254)
     Grams = models.DecimalField(max_digits=6, decimal_places=2)
