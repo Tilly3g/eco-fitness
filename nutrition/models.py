@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator
 
 # Create your models here.
 
@@ -26,7 +27,7 @@ class Nutrition(models.Model):
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
     Food = models.CharField(max_length=254)
     Grams = models.DecimalField(max_digits=6, decimal_places=2)
-    Calories = models.IntegerField()
+    Calories = models.IntegerField(validators=[MaxValueValidator(9999)])
     Protein = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     Fat = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     Saturated_Fat = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)

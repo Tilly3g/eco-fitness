@@ -8,14 +8,16 @@
 	
 	{% block content %}
 	    <p class="lead font-weight-bold paragraph-margin">"Being healthy shouldn't cost the Earth!"</p>
-        <p class="font-weight-bold"> This is our philosophy here at eco fitness. We believe that you can look after your mind and body whilst also helping preserve our planet. We offer a range of eco friendly workout equipment as well as diet and exercise plans from our trained specialists.</p>
+        <p class="font-weight-bold"> This is our philosophy here at eco fitness. We believe that you can look after your mind and body whilst also helping preserve our planet. We offer diet and exercise plans from our trained specialists, tailored to your goals as well as saving the environment. We'll help you make eco friendly swaps whilst also improving your health and lifestyle.</p>
+        <p class="font-weight-bold paragraph-margin">You'll meet with one of our professionals either as a one off or on a regular basis, depending on your needs. You can talk through your current lifestyle and your future goals and they'll help you make decisions and plans based on this. A one off session will give you a starting point to go from, what our experts think you should be doing on a daily basis, including exercise and calory intake. If you choose to meet someone on an ongoing basis then this will include full meal and exercise plans, tracking what works and what doesn't and making adjustments over time to keep up with your life and fitness changes.</p>
 	    <p class="lead">
-		    <a href="#" class="btn btn-lg btn-secondary">Shop now!</a>
+		    <a href="{% url 'bookings' %}" class="btn btn-lg btn-secondary">Book now!</a>
 	    </p>
     {% if request.user.is_authenticated %}
         <p class="font-weight-bold paragraph-margin">Track your meals in your <a class="index-link" href="{% url 'nutrition' %}">Food Diary!</a></p>
     {% else %}
-        <p class="font-weight-bold paragraph-margin"><a class="index-link" href="{% url 'account_signup' %}">Register</a> or <a class="index-link" href="{% url 'account_login' %}">Login</a> to start tracking your meals</p>
+        <p class="font-weight-bold paragraph-margin">We also offer a food diary free to anyone who signs up. This lets you set goals and track your daily calorie intake, including macros.</p>
+        <p class="font-weight-bold paragraph-margin"><a class="index-link" href="{% url 'account_signup' %}">Register</a> or <a class="index-link" href="{% url 'account_login' %}">Login</a> to start tracking today.</p>
     {% endif %}
         <p class="font-weight-bold paragraph-margin">Or <a class="index-link" href="#">Contact us</a> to book in a consultation with one of our specialists. This is a free meeting for us to learn a bit more about you, discuss what you want and to come up with a no obligation quote on tailored meal and exercise plans to help you meet your goals.</p>
 
