@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+	    <h1 class="diary-heading">Food <strong>Diary</strong></h1>
+	{% endblock %}
+	
+	{% block content %}
+	    <p class="lead font-weight-bold paragraph-margin">Keep track of your calorie intake, including macros, per meal.</p>
+    {% if request.user.is_authenticated %}
+        <p class="font-weight-bold paragraph-margin">Snacks</p>
+        <p class="font-weight-bold paragraph-margin">Breakfast</p>
+        <p class="font-weight-bold paragraph-margin">Lunch</p>
+        <p class="font-weight-bold paragraph-margin">Dinner</p>
+        <p class="font-weight-bold paragraph-margin">Water intake</p>
+    {% else %}
+        <p class="font-weight-bold paragraph-margin"><a class="index-link" href="{% url 'account_signup' %}">Register</a> or <a class="index-link" href="{% url 'account_login' %}">Login</a> to start tracking your meals</p>
+    {% endif %}
+
+	{% endblock %}

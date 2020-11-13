@@ -13,7 +13,7 @@
 		    <a href="#" class="btn btn-lg btn-secondary">Shop now!</a>
 	    </p>
     {% if request.user.is_authenticated %}
-        <p class="font-weight-bold paragraph-margin">Track your meals in your <a class="index-link" href="#">Food Diary!</a></p>
+        <p class="font-weight-bold paragraph-margin">Track your meals in your <a class="index-link" href="{% url 'nutrition' %}">Food Diary!</a></p>
     {% else %}
         <p class="font-weight-bold paragraph-margin"><a class="index-link" href="{% url 'account_signup' %}">Register</a> or <a class="index-link" href="{% url 'account_login' %}">Login</a> to start tracking your meals</p>
     {% endif %}
