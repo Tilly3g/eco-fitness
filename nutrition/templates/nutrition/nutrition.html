@@ -8,6 +8,13 @@
 	{% block content %}
 	    <p class="lead font-weight-bold paragraph-margin">Keep track of your calorie intake, including macros, per meal.</p>
     {% if request.user.is_authenticated %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    {{ foods }}
+                </div>
+            </div>
+        </div>
         <p class="font-weight-bold paragraph-margin">Snacks</p>
         <p class="font-weight-bold paragraph-margin">Breakfast</p>
         <p class="font-weight-bold paragraph-margin">Lunch</p>
