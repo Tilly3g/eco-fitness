@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'bookings',
     'crispy_forms',
     'food_diary',
+    'bag',
 ]
 
 MIDDLEWARE = [
