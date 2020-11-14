@@ -161,6 +161,12 @@ body {
 }
 
 
+/* CSS for form */
+span.asteriskField { 
+	color: red;
+	font-size: 15px;
+    }
+
 /*
  * Footer
  */

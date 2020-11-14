@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+	    <h1 class="diary-heading">Food <strong>Diary</strong></h1>
+	{% endblock %}
+	
+	{% block content %}
+        <div class="container-fluid overlay rounded">
+            <div class="row">
+                <div class="col-12">
+	                <p class="lead font-weight-bold paragraph-margin">Keep track of your calorie intake, including macros, per meal.</p>
+                </div>
+    {% if request.user.is_authenticated %}
+                <div class="col-lg-2">
+                    <p class="font-weight-bold paragraph-margin">Snacks</p>
+                    <div class="row">
+                        <div class="col">
+                            {% if food_items %}
+                            <div class="table-responsive rounded"></div>
+                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
+                            </a>
+                            {% else %}
+                            <p class="lead mb-5">Add your snacks</p>
+                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <p class="font-weight-bold paragraph-margin">Breakfast</p>
+                    <div class="row">
+                        <div class="col">
+                            {% if food_items %}
+                            <div class="table-responsive rounded"></div>
+                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
+                            </a>
+                            {% else %}
+                            <p class="lead mb-5">Add your breakfast</p>
+                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <p class="font-weight-bold paragraph-margin">Lunch</p>
+                    <div class="row">
+                        <div class="col">
+                            {% if food_items %}
+                            <div class="table-responsive rounded"></div>
+                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
+                            </a>
+                            {% else %}
+                            <p class="lead mb-5">Add your lunch</p>
+                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <p class="font-weight-bold paragraph-margin">Dinner</p>
+                    <div class="row">
+                        <div class="col">
+                            {% if food_items %}
+                            <div class="table-responsive rounded"></div>
+                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
+                            </a>
+                            {% else %}
+                            <p class="lead mb-5">Add your dinner</p>
+                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+    {% else %}
+                <div class="col-12">
+                    <p class="font-weight-bold paragraph-margin"><a class="index-link" href="{% url 'account_signup' %}">Register</a> or <a class="index-link" href="{% url 'account_login' %}">Login</a> to start tracking your meals</p>
+                </div>
+    {% endif %}
+            </div>
+        </div>
+
+	{% endblock %}

@@ -14,12 +14,11 @@
 		    <a href="{% url 'bookings' %}" class="btn btn-lg btn-secondary">Book now!</a>
 	    </p>
     {% if request.user.is_authenticated %}
-        <p class="font-weight-bold paragraph-margin">Track your meals in your <a class="index-link" href="{% url 'nutrition' %}">Food Diary!</a></p>
+        <p class="font-weight-bold paragraph-margin">Track your meals in your <a class="index-link" href="{% url 'diary' %}">Food Diary!</a></p>
     {% else %}
         <p class="font-weight-bold paragraph-margin">We also offer a food diary free to anyone who signs up. This lets you set goals and track your daily calorie intake, including macros.</p>
         <p class="font-weight-bold paragraph-margin"><a class="index-link" href="{% url 'account_signup' %}">Register</a> or <a class="index-link" href="{% url 'account_login' %}">Login</a> to start tracking today.</p>
     {% endif %}
-        <p class="font-weight-bold paragraph-margin">Or <a class="index-link" href="#">Contact us</a> to book in a consultation with one of our specialists. This is a free meeting for us to learn a bit more about you, discuss what you want and to come up with a no obligation quote on tailored meal and exercise plans to help you meet your goals.</p>
 
 	{% endblock %}
 </main>
