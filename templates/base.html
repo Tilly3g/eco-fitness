@@ -65,6 +65,13 @@
                 <div class="inner">
                     <a href="{% url 'home' %}"><h3 class="masthead-brand">Eco <strong>Fitness</strong></h3></a>
                     <nav class="nav nav-masthead justify-content-center">
+                        <a class="nav-link hide-on-xs" href="{% url 'home' %}">
+                            <div class="text-center">
+                                <div><i class="fas fa-home fa-lg"></i></div>
+                                <p class="my-0">Home
+                                </p>
+                            </div>     
+                        </a>
                         <a class="nav-link active" href="#" id="profile-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
                                 <div><i class="far fa-lg fa-user-circle"></i></div>
@@ -92,7 +99,7 @@
                             </div>      
                         </a>
                     {% endif %}
-                        <a class="nav-link add-margin" href="{% url 'view_bag' %}">
+                        <a class="nav-link add-margin" href="#" id="booking-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
                                 <div><i class="fas fa-lg fa-shopping-cart"></i></div>
                                 <p class="my-0">
@@ -104,13 +111,10 @@
                                 </p>
                             </div>
                         </a>
-                        <a class="nav-link hide-on-xs" href="{% url 'home' %}">
-                            <div class="text-center">
-                                <div><i class="fas fa-home fa-lg"></i></div>
-                                <p class="my-0">Home
-                                </p>
-                            </div>     
-                        </a>
+                        <div class="dropdown-menu border-0" aria-labelledby="booking-options">
+                            <a href="{% url 'view_bag' %}" class="dropdown-item">View bag</a>
+                            <a href="{% url 'bookings' %}" class="dropdown-item">View available sessions</a>
+                        </div>
                     </nav>
                 </div>
             </header>

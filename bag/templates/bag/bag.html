@@ -9,8 +9,10 @@
         <div class="container-fluid overlay rounded">
             <div class="row">
                 <div class="col">
-                    {% if sessions %}
-                    <div class="table-responsive rounded"></div>
+                    {% if bookings %}
+                    <div class="table-responsive rounded">
+                    
+                    </div>
                     {% else %}
                     <p class="lead mb-5">You haven't added any sessions to your cart.</p>
                     <a href="{% url 'bookings' %}" class="btn btn-outline-black rounded-0 btn-lg">

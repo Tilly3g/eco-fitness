@@ -21,7 +21,7 @@ def get_food(request):
             })
         else:
             food = get_object_or_404(Nutrition, pk=food_id)
-            for amount in food_data['food_items'].items():
+            for amount in food_data[food_id].items():
                 calories += food.Calories / food.Grams * amount
                 food_amount += amount
                 food_items.append({

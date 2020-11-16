@@ -29,19 +29,19 @@
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <button class="decrement-qty btn btn-black rounded-0" 
-                                                data-item_id="{{ food.id }}" id="decrement-qty_{{ food.id }}">
+                                                data-food_id="{{ food.id }}" id="decrement-qty_{{ food.id }}">
                                                 <span class="icon">
                                                     <i class="fas fa-minus"></i>
                                                 </span>
                                             </button>
                                         </div>
                                         <input class="form-control qty_input" type="number"
-                                            name="amount" value="1" min="1" max="9999"
-                                            data-item_id="{{ food.id }}"
+                                            name="amount" value="{{ food.Grams }}" min="1" max="9999"
+                                            data-food_id="{{ food.id }}"
                                             id="id_qty_{{ food.id }}">
                                         <div class="input-group-append">
                                             <button class="increment-qty btn btn-black rounded-0"
-                                                data-item_id="{{ food.id }}" id="increment-qty_{{ food.id }}">
+                                                data-food_id="{{ food.id }}" id="increment-qty_{{ food.id }}">
                                                 <span class="icon">
                                                     <i class="fas fa-plus"></i>
                                                 </span>
