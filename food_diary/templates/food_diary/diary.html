@@ -37,7 +37,7 @@
                                                 <p class="my-0">{{ item.amount }}g</p>
                                             </td>
                                             <td class="py-3">
-                                                <p class="my-0">{{ item.calories }}</p>
+                                                <p class="my-0">{{ item.calories|floatformat:0 }}</p>
                                             </td>
                                             <td class="py-3 w-25">
                                                 <a class="update-link text-info"><small>Update</small></a>
@@ -50,7 +50,7 @@
 
                             </div>
                             <p>Meal goal = 2000</p>
-                            <p>Remaining Calories = {{ item.calories_left }}</p>
+                            <p>Remaining Calories = {{ calories_left }}</p>
                             <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
                                 <span class="icon"><i class= "fas fa-plus lg"></i></span>
                             </a>
@@ -83,9 +83,8 @@
         $('.remove-item').click(function(e) {
             var csrfToken = "{{ csrf_token }}";
             var itemId = $(this).attr('id').split('remove_')[1];
-            var size = $(this).data('size');
             var url = `/diary/remove/${itemId}`;
-            var data = {'csrfmiddlewaretoken': csrfToken, 'size': size};
+            var data = {'csrfmiddlewaretoken': csrfToken};
 
             $.post(url, data)
             .done(function() {

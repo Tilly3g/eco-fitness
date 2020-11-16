@@ -9,9 +9,87 @@
         <div class="container-fluid overlay rounded">
             <div class="row">
                 <div class="col">
-                    {% if bookings %}
+                    {% if bag_bookings %}
                     <div class="table-responsive rounded">
-                    
+                    <table class="table table-sm table-borderless">
+                            <thead class="text-black">
+                                <tr>
+                                    <th scope="col">Session type</th>
+                                    <th scope="col">Duration</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">Subtotal</th>
+                                </tr>
+                            </thead>
+
+                            {% for booking in bag_bookings %}
+                                <tr>
+                                    <td class="py-3">
+                                        <p class="my-0"><strong>{{ booking.booking.name }}</strong></p>
+                                        <p class="my-0"><strong>With: </strong>{% if booking.booking.Expert %}{{ booking.booking.Expert.friendly_name }}{% else %}N/A{% endif %}</p>
+                                    </td>
+                                    <td class="py-3">
+                                        <p class="my-0">£{{ booking.booking.price }}</p>
+                                    </td>
+                                    <td class="py-3 w-25">
+                                        <form class="form update-form" method="POST" action="">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <button class="decrement-qty btn btn-sm btn-black rounded-0" 
+                                                            data-booking_id="{{ booking.booking_id }}" id="decrement-qty_{{ booking.booking_id }}">
+                                                            <span>
+                                                                <i class="fas fa-minus fa-sm"></i>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                    <input class="form-control form-control-sm qty_input" type="number"
+                                                        name="quantity" value="{{ booking.quantity }}" min="1" max="99"
+                                                        data-booking_id="{{ booking.booking_id }}"
+                                                        id="id_qty_{{ booking.booking_id }}">
+                                                    <div class="input-group-append">
+                                                        <button class="increment-qty btn btn-sm btn-black rounded-0"
+                                                            data-booking_id="{{ booking.booking_id }}" id="increment-qty_{{ booking.booking_id }}">
+                                                            <span>
+                                                                <i class="fas fa-plus fa-sm"></i>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <a class="update-link text-info"><small>Update</small></a>
+                                        <a class="remove-item text-danger float-right" id="remove_{{ booking.booking_id }}"><small>Remove</small></a>
+                                    </td>
+                                    <td class="py-3">
+                                        <p class="my-0">£{{ booking.booking.price }}</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="5" class="pt-5 text-right">
+                                    <h6><strong>Bag Total: £{{ total|floatformat:2 }}</strong></h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="text-right">
+                                    <a href="{% url 'bookings' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                        <span class="icon">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </span>
+                                        <span class="text-uppercase">Add bookings</span>
+                                    </a>
+                                    <a href="" class="btn btn-black rounded-0 btn-lg">
+                                        <span class="text-uppercase">Secure Checkout</span>
+                                        <span class="icon">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                     </div>
                     {% else %}
                     <p class="lead mb-5">You haven't added any sessions to your cart.</p>
@@ -25,3 +103,72 @@
         </div>
 
 	{% endblock %}
+
+    {% block postloadjs %}
+{{ block.super }}
+
+<script type="text/javascript">
+    // script edited from code institute boutique ado project
+
+    // Disable +/- buttons outside 1-99 range
+    function handleEnableDisable(itemId) {
+      var currentValue = parseInt($(`#id_qty_${itemId}`).val());
+      var minusDisabled = currentValue < 2;
+      var plusDisabled = currentValue > 98;
+      $(`#decrement-qty_${itemId}`).prop("disabled", minusDisabled);
+      $(`#increment-qty_${itemId}`).prop("disabled", plusDisabled);
+    }
+
+    // Ensure proper enabling/disabling of all inputs on page load
+    var allQtyInputs = $(".qty_input");
+    for (var i = 0; i < allQtyInputs.length; i++) {
+      var itemId = $(allQtyInputs[i]).data("booking_id");
+      handleEnableDisable(itemId);
+    }
+
+    // Check enable/disable every time the input is changed
+    $(".qty_input").change(function () {
+      var itemId = $(this).data("booking_id");
+      handleEnableDisable(itemId);
+    });
+
+    // Increment quantity
+    $(".increment-qty").click(function (e) {
+      e.preventDefault();
+      var closestInput = $(this).closest(".input-group").find(".qty_input")[0];
+      var currentValue = parseInt($(closestInput).val());
+      $(closestInput).val(currentValue + 1);
+      var itemId = $(this).data("booking_id");
+      handleEnableDisable(itemId);
+    });
+
+    // Decrement quantity
+    $(".decrement-qty").click(function (e) {
+      e.preventDefault();
+      var closestInput = $(this).closest(".input-group").find(".qty_input")[0];
+      var currentValue = parseInt($(closestInput).val());
+      $(closestInput).val(currentValue - 1);
+      var itemId = $(this).data("booking_id");
+      handleEnableDisable(itemId);
+    });
+
+    // Update quantity on click
+    $('.update-link').click(function(e) {
+        var form = $(this).prev('.update-form');
+        form.submit();
+    })
+
+    // Remove item and reload on click
+    $('.remove-item').click(function(e) {
+        var csrfToken = "{{ csrf_token }}";
+        var itemId = $(this).attr('id').split('remove_')[1];
+        var url = `/bag/remove/${itemId}`;
+        var data = {'csrfmiddlewaretoken': csrfToken};
+
+        $.post(url, data)
+         .done(function() {
+             location.reload();
+         });
+    })
+</script>
+{% endblock %}
