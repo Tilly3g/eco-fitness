@@ -9,74 +9,24 @@
         <div class="container overlay rounded">
             <div class="row">
                 <div class="col-12 rmv-padding">
-	                <p class="lead font-weight-bold paragraph-margin">Keep track of your calorie intake, including macros, per meal.</p>
+	                <p class="lead font-weight-bold paragraph-margin">Keep track of your calorie intake per day here.</p>
                 </div>
     {% if request.user.is_authenticated %}
-                <div class="col-12 col-md-3 rmv-padding">
-                    <p class="font-weight-bold paragraph-margin">Snacks</p>
+                <div class="col-12">
+                    <p class="font-weight-bold paragraph-margin">Track your food</p>
                     <div class="row">
                         <div class="col">
-                            {% if snacks %}
-                            <div class="table-responsive rounded"></div>
+                            {% if food_items %}
+                            <div class="table-responsive rounded">
+                            
+                            </div>
+                            <p>Meal goal = 2000</p>
                             <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
                                 <span class="icon"><i class= "fas fa-plus lg"></i></span>
                             </a>
                             {% else %}
-                            <p class="lead mb-5">Add your snacks</p>
-                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
-                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
-                            </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3 rmv-padding">
-                    <p class="font-weight-bold paragraph-margin">Breakfast</p>
-                    <div class="row">
-                        <div class="col">
-                            {% if breakfast %}
-                            <div class="table-responsive rounded"></div>
-                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
-                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
-                            </a>
-                            {% else %}
-                            <p class="lead mb-5">Add your breakfast</p>
-                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
-                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
-                            </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3 rmv-padding">
-                    <p class="font-weight-bold paragraph-margin">Lunch</p>
-                    <div class="row">
-                        <div class="col">
-                            {% if lunch %}
-                            <div class="table-responsive rounded"></div>
-                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
-                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
-                            </a>
-                            {% else %}
-                            <p class="lead mb-5">Add your lunch</p>
-                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
-                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
-                            </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3 rmv-padding">
-                    <p class="font-weight-bold paragraph-margin">Dinner</p>
-                    <div class="row">
-                        <div class="col">
-                            {% if dinner %}
-                            <div class="table-responsive rounded"></div>
-                            <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
-                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
-                            </a>
-                            {% else %}
-                            <p class="lead mb-5">Add your dinner</p>
+                            <p>Calorie goal = 2000</p>
+                            <p class="lead mb-5">Add your food</p>
                             <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
                                 <span class="icon"><i class= "fas fa-plus lg"></i></span>
                             </a>

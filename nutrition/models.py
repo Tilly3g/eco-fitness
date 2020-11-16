@@ -26,7 +26,7 @@ class Nutrition(models.Model):
 
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
     Food = models.CharField(max_length=254)
-    Grams = models.DecimalField(max_digits=6, decimal_places=2)
+    Grams = models.IntegerField(validators=[MaxValueValidator(9999)])
     Calories = models.IntegerField(validators=[MaxValueValidator(9999)])
     Protein = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     Fat = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)

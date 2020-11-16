@@ -41,8 +41,8 @@ def all_nutrition(request):
     return render(request, 'nutrition/nutrition.html', context)
 
 
-def product_detail(request, food_id):
-    """ A view to show nutrition information for food """
+def food_item(request, food_id):
+    """ A view to show nutritional information for food """
 
     food = get_object_or_404(Nutrition, pk=food_id)
 

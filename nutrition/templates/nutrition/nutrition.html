@@ -61,13 +61,16 @@
                                     <div class="col">
                                         <p class="lead mb-0 text-left font-weight-bold">Amount (in Grams): {{ food.Grams }}g</p>
                                         <p class="lead mb-0 text-left font-weight-bold">Calories: {{ food.Calories }}</p>
-                                        {% if food.Category %}
+                                        {% if food.category %}
                                             <p class="mb-0 text-right">
                                                 <a href="{% url 'nutrition' %}?category={{ food.category.name }}">
-                                                <i class="fas fa-tag mr-1"></i>Category: {{ food.Category.friendly_name }}
+                                                <i class="fas fa-tag mr-1"></i>Category: {{ food.category.friendly_name }}
                                                 </a>
                                             </p>
                                         {% endif %}
+                                        <a href="{% url 'food_item' food.id %}">
+                                            <i class="fas fa-tag mr-1"></i>View nutritional information
+                                        </a>
                                     </div>
                                 </div>
                             </div>

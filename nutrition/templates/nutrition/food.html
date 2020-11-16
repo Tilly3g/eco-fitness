@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <h1 class="diary-heading"></h1>
+{% endblock %}
+
+{% block content %}
+    <div class="container overlay rounded">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="mb-5 mt-md-5">
+                    <p class="mb-0">{{ food.Food }}</p>
+                    <p class="lead mb-0 text-left font-weight-bold">{{ food.Calories }}</p>
+                    {% if food.category %}
+                    <p class="small mt-1 mb-0">
+                        <a class="text-muted" href="{% url 'nutrition' %}?category={{ food.category.name }}">
+                            <i class="fas fa-tag mr-1"></i>{{ food.category.friendly_name }}
+                        </a>
+                    </p>
+                    {% endif %}
+                    <p class="lead mb-0 text-left font-weight-bold">{{ food.Grams }}</p>
+                    <form class="form" action="{% url 'add_to_diary' food.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col-12">
+                                <p class="mt-3"><strong>Amount (in grams):</strong></p>
+                                <div class="form-group w-50">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button class="decrement-qty btn btn-black rounded-0" 
+                                                data-item_id="{{ food.id }}" id="decrement-qty_{{ food.id }}">
+                                                <span class="icon">
+                                                    <i class="fas fa-minus"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <input class="form-control qty_input" type="number"
+                                            name="quantity" value="1" min="1" max="9999"
+                                            data-item_id="{{ food.id }}"
+                                            id="id_qty_{{ food.id }}">
+                                        <div class="input-group-append">
+                                            <button class="increment-qty btn btn-black rounded-0"
+                                                data-item_id="{{ food.id }}" id="increment-qty_{{ food.id }}">
+                                                <span class="icon">
+                                                    <i class="fas fa-plus"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 mt-5">
+                                    <span class="icon">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="text-uppercase">Search food</span>
+                                </a>
+                                <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Add to Diary">
+                            </div>
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+		$('.btt-link').click(function(e) {
+			window.scrollTo(0,0)
+		})
+	</script>
+{% endblock %}
