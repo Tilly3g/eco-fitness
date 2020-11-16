@@ -7,13 +7,13 @@ a:hover {
 }
 
 /* Override auto box-sizing from bootstrap */
-*,
+/*,
 ::after,
 ::before {
     -webkit-box-sizing: content-box !important;
     -moz-box-sizing: content-box !important;
     box-sizing: content-box !important;
-}
+} */
 
 /* Custom default button */
 .btn-secondary,
@@ -69,6 +69,10 @@ body {
 .no-margin {
     margin: 0;
     padding: 0;
+}
+
+.rmv-padding {
+    padding-left: 0!important;
 }
 
 /*

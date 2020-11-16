@@ -1,22 +1,82 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block page_header %}
+    {% block page_header %}
 	    <h1 class="diary-heading">Add your food</h1>
 	{% endblock %}
 	
 	{% block content %}
         
-    {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated %}
+        <div class="container overlay rounded">
+            <div class="row">
+                <div class="col-12">
+                    <p>Search bar</p>
+                </div>
+                <div class="col-12">
+                {% if current_categories != 'None_None' %}
+                {% for food in foods %}
+                    <a class="category-badge text-decoration-none" href="{% url 'nutrition' %}?category={{ category }}">
+                        <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ category }}</span>
+                    </a>
+                {% endfor %}    
+                {% else %}
+                {% for cat in current_categories %}
+                            <a class="category-badge text-decoration-none" href="{% url 'nutrition' %}?category={{ cat.name }}">
+                                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ cat.friendly_name }}</span>
+                            </a>
+                {% endfor %}
+                {% endif %}
+                </div>
 
-    
-                
-    {% else %}
+                <div class="col-12">
+                    <p class="text-muted">
+                        {% if search_term or current_categories != 'None_None' %}
+                        <span class="small">Search for your food by name or category</span>
+                        {% endif %}
+                        {{ foods|length }} foods{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+                    </p>
+                </div>
+                {% for food in foods %}
+                    <div class="col-12">
+                        <div class="card h-100 border-0">
+                            <div class="card-body pb-0">
+                                <p class="mb-0">{{ food.food }}</p>
+                            </div>
+                            <div class="card-footer bg-white pt-0 border-0 text-left">
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="lead mb-0 text-left font-weight-bold">{{ food.grams }}</p>
+                                        <p class="lead mb-0 text-left font-weight-bold">{{ food.calories }}</p>
+                                            {% if product.category %}
+                                            <p class="small mt-1 mb-0">
+                                                <a class="text-muted" href="{% url 'nutrition' %}?category={{ food.category.name }}">
+                                                <i class="fas fa-tag mr-1"></i>{{ food.category.friendly_name }}
+                                                </a>
+                                            </p>
+                                            {% endif %}
+                                            {% if food.protein %}
+                                            <small class="text-muted">{{ food.protein }}</small>
+                                            {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                {% endfor %}
+                <div class="btt-button shadow-sm rounded-0 border border-black">
+                    <a class="btt-link d-flex h-100">
+                        <i class="fas fa-arrow-up text-black mx-auto my-auto"></i>
+                    </a>	
+                </div>
+                        
+            {% else %}
                 <div class="col-12">
                     <p class="font-weight-bold paragraph-margin"><a class="index-link" href="{% url 'account_signup' %}">Register</a> or <a class="index-link" href="{% url 'account_login' %}">Login</a> to start tracking your meals</p>
                 </div>
-    {% endif %}
             </div>
         </div>
+            {% endif %}
+
 
 	{% endblock %}
