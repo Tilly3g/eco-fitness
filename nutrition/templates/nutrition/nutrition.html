@@ -11,13 +11,26 @@
         <div class="container overlay rounded">
             <div class="row">
                 <div class="col-12">
-                    <p>Search bar</p>
+                     <div class="border-0 w-100 p-3 rounded-0 my-0">
+                        <form class="form" method="GET" action="{% url 'nutrition' %}">
+                            <div class="input-group w-100">
+                                <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search for your food item!">
+                                <div class="input-group-append">
+                                    <button class="form-control form-control btn btn-black border border-black rounded-0" type="submit">
+                                        <span class="icon">
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="col-12">
                 {% if current_categories != 'None_None' %}
-                {% for food in foods %}
-                    <a class="category-badge text-decoration-none" href="{% url 'nutrition' %}?category={{ category }}">
-                        <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ category }}</span>
+                {% for c in all_categories %}
+                    <a class="category-badge text-decoration-none" href="{% url 'nutrition' %}?category={{ c.name }}">
+                        <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ c.friendly_name }}</span>
                     </a>
                 {% endfor %}    
                 {% else %}
@@ -34,30 +47,27 @@
                         {% if search_term or current_categories != 'None_None' %}
                         <span class="small">Search for your food by name or category</span>
                         {% endif %}
-                        {{ foods|length }} foods{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+                        {{ foods|length }} food items{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
                     </p>
                 </div>
                 {% for food in foods %}
                     <div class="col-12">
                         <div class="card h-100 border-0">
                             <div class="card-body pb-0">
-                                <p class="mb-0">{{ food.food }}</p>
+                                <p class="mb-0">{{ food.Food }}</p>
                             </div>
                             <div class="card-footer bg-white pt-0 border-0 text-left">
                                 <div class="row">
                                     <div class="col">
-                                        <p class="lead mb-0 text-left font-weight-bold">{{ food.grams }}</p>
-                                        <p class="lead mb-0 text-left font-weight-bold">{{ food.calories }}</p>
-                                            {% if product.category %}
-                                            <p class="small mt-1 mb-0">
-                                                <a class="text-muted" href="{% url 'nutrition' %}?category={{ food.category.name }}">
-                                                <i class="fas fa-tag mr-1"></i>{{ food.category.friendly_name }}
+                                        <p class="lead mb-0 text-left font-weight-bold">Amount (in Grams): {{ food.Grams }}g</p>
+                                        <p class="lead mb-0 text-left font-weight-bold">Calories: {{ food.Calories }}</p>
+                                        {% if food.Category %}
+                                            <p class="mb-0 text-right">
+                                                <a href="{% url 'nutrition' %}?category={{ food.category.name }}">
+                                                <i class="fas fa-tag mr-1"></i>Category: {{ food.Category.friendly_name }}
                                                 </a>
                                             </p>
-                                            {% endif %}
-                                            {% if food.protein %}
-                                            <small class="text-muted">{{ food.protein }}</small>
-                                            {% endif %}
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

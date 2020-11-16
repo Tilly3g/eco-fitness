@@ -11,6 +11,7 @@ def all_nutrition(request):
     """ A view to search for nutrition info and show categories """
 
     foods = Nutrition.objects.all()
+    all_categories = Category.objects.all()
     query = None
     categories = None
 
@@ -18,7 +19,7 @@ def all_nutrition(request):
 
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
-            foods = Nutrition.filter(category__name__in=categories)
+            foods = foods.filter(category__name__in=categories)
             categories = Category.objects.filter(name__in=categories)
 
         if 'q' in request.GET:
@@ -27,13 +28,14 @@ def all_nutrition(request):
                 messages.error(request, "Oops, looks like you didn't search for anything!")
                 return redirect(reverse('nutrition'))
 
-            queries = Q(food__icontains=query) | Q(category__icontains=query)
-            foods = Nutrition.filter(queries)
+            queries = Q(Food__icontains=query) | Q(category__friendly_name__icontains=query)
+            foods = foods.filter(queries)
 
     context = {
         'foods': foods,
         'search_term': query,
         'current_categories': categories,
+        'categories': all_categories,
     }
 
     return render(request, 'nutrition/nutrition.html', context)
