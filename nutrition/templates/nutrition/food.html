@@ -36,7 +36,7 @@
                                             </button>
                                         </div>
                                         <input class="form-control qty_input" type="number"
-                                            name="quantity" value="1" min="1" max="9999"
+                                            name="amount" value="1" min="1" max="9999"
                                             data-item_id="{{ food.id }}"
                                             id="id_qty_{{ food.id }}">
                                         <div class="input-group-append">
@@ -72,8 +72,48 @@
 {% block postloadjs %}
     {{ block.super }}
     <script type="text/javascript">
-		$('.btt-link').click(function(e) {
-			window.scrollTo(0,0)
-		})
-	</script>
+    // script used from code institute boutique ado project
+
+        // Disable +/- buttons outside 1-99 range
+        function handleEnableDisable(itemId) {
+            var currentValue = parseInt($(`#id_qty_${itemId}`).val());
+            var minusDisabled = currentValue < 2;
+            var plusDisabled = currentValue > 98;
+            $(`#decrement-qty_${itemId}`).prop('disabled', minusDisabled);
+            $(`#increment-qty_${itemId}`).prop('disabled', plusDisabled);
+        }
+
+        // Ensure proper enabling/disabling of all inputs on page load
+        var allQtyInputs = $('.qty_input');
+        for(var i = 0; i < allQtyInputs.length; i++){
+            var itemId = $(allQtyInputs[i]).data('food_id');
+            handleEnableDisable(itemId);
+        }
+
+        // Check enable/disable every time the input is changed
+        $('.qty_input').change(function() {
+            var itemId = $(this).data('food_id');
+            handleEnableDisable(itemId);
+        });
+
+        // Increment quantity
+        $('.increment-qty').click(function(e) {
+        e.preventDefault();
+        var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+        var currentValue = parseInt($(closestInput).val());
+        $(closestInput).val(currentValue + 1);
+        var itemId = $(this).data('food_id');
+        handleEnableDisable(itemId);
+        });
+
+        // Decrement quantity
+        $('.decrement-qty').click(function(e) {
+        e.preventDefault();
+        var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+        var currentValue = parseInt($(closestInput).val());
+        $(closestInput).val(currentValue - 1);
+        var itemId = $(this).data('food_id');
+        handleEnableDisable(itemId);
+        });
+    </script>
 {% endblock %}

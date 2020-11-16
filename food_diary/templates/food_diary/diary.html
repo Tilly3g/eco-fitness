@@ -19,8 +19,42 @@
                             {% if food_items %}
                             <div class="table-responsive rounded">
                             
+
+    
+                           
+                                <table class="table table-sm table-borderless">
+                                    <thead class="text-black">
+                                        <tr>
+                                            <th scope="col">Food</th>
+                                            <th scope="col">Amount(g)</th>
+                                            <th scope="col">Calories</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+
+                                    {% for item in food_items %}
+                                        <tr>
+                                            <td class="py-3">
+                                                <p class="my-0"><strong>{{ item.food.Food }}</strong></p>
+                                            </td>
+                                            <td class="py-3">
+                                                <p class="my-0">{{ item.amount }}g</p>
+                                            </td>
+                                            <td class="py-3">
+                                                <p class="my-0">{{ item.calories }}</p>
+                                            </td>
+                                            <td class="py-3 w-25">
+                                                <a class="update-link text-info"><small>Update</small></a>
+                                                <a class="remove-item text-danger float-right" id="remove_{{ item.food_id }}" ><small>Remove</small></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+
                             </div>
                             <p>Meal goal = 2000</p>
+                            <p>Remaining Calories = {{ item.calories_left }}</p>
                             <a href="{% url 'nutrition' %}" class="btn btn-outline-black rounded-0 btn-lg">
                                 <span class="icon"><i class= "fas fa-plus lg"></i></span>
                             </a>
@@ -43,3 +77,24 @@
         </div>
 
 	{% endblock %}
+
+    {% block postloadjs %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+
+        // Remove item and reload on click
+        $('.remove-item').click(function(e) {
+            var csrfToken = "{{ csrf_token }}";
+            var itemId = $(this).attr('id').split('remove_')[1];
+            var size = $(this).data('size');
+            var url = `/diary/remove/${itemId}`;
+            var data = {'csrfmiddlewaretoken': csrfToken, 'size': size};
+
+            $.post(url, data)
+            .done(function() {
+                location.reload();
+            });
+        })
+    </script>
+{% endblock %}
