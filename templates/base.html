@@ -102,19 +102,19 @@
                             </div>      
                         </a>
                     {% endif %}
-                        <a class="nav-link add-margin" href="#" id="booking-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link add-margin" href="#" id="bookings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
                                 <div><i class="fas fa-lg fa-shopping-cart"></i></div>
                                 <p class="my-0">
-                                    {% if grand_total %}
-                                        £{{ grand_total|floatformat:2 }}
+                                    {% if total %}
+                                        £{{ total|floatformat:2 }}
                                     {% else %}
                                         £0.00
                                     {% endif %}
                                 </p>
                             </div>
                         </a>
-                        <div class="dropdown-menu border-0" aria-labelledby="booking-options">
+                        <div class="dropdown-menu border-0" aria-labelledby="bookings">
                             <a href="{% url 'view_bag' %}" class="dropdown-item">View bag</a>
                             <a href="{% url 'bookings' %}" class="dropdown-item">View available sessions</a>
                         </div>

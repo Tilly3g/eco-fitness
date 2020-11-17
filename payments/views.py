@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import PaymentForm
 
 
-def checkout(request):
+def payment(request):
     bag = request.session.get('bag', {})
     if not bag:
         messages.error(request, "Looks like you haven't added any sessions to your bag")
