@@ -3,7 +3,7 @@
 {% load bag_tools %}
 
 {% block extra_css %}
-    
+    <link rel="stylesheet" href="{% static 'payments/css/payment.css' %}">
 {% endblock %}
 
 {% block page_header %}
@@ -30,7 +30,7 @@
                         
                         <div class="col-7">
                             <p class="my-0"><strong>{{ booking.booking.name }}</strong></p>
-                            <p class="my-0 small">With: {% if booking.booking.Epert %}{{ booking.booking.Expert.friendly_name }}{% else %}N/A{% endif %}</p>
+                            <p class="my-0 small">With: {% if booking.booking.Expert %}{{ booking.booking.Expert.friendly_name }}{% else %}N/A{% endif %}</p>
                             <p class="my-0 small text-muted">Qty: {{ booking.quantity }}</p>
                         </div>
                         <div class="col-3 text-right">
@@ -112,4 +112,11 @@
         </div>
     </div>
     </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ stipe_secret_key|json_script:"id_stripe_secret_key" }}
+    <script src="{% static 'payments/js/stripe_elements.js' %}"></script>
 {% endblock %}
