@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
-from django.db.models.functions import Lower
 
 from .models import Session, Expert
 from .forms import SessionUpdate
@@ -39,7 +37,7 @@ def add_session(request):
             messages.error(request, 'Error adding session type. Please ensure the form is valid.')
     else:
         form = SessionUpdate()
-        
+
     template = 'bookings/add_session.html'
     context = {
         'form': form,
@@ -49,7 +47,7 @@ def add_session(request):
 
 
 @login_required
-def edit_session(request, product_id):
+def edit_session(request, session_id):
     """ Edit an existing session type """
     if not request.user.is_superuser:
         messages.error(request, 'Oops, only administrators can do that.')
@@ -61,7 +59,7 @@ def edit_session(request, product_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully updated session type!')
-            return redirect(reverse('bookings')
+            return redirect('bookings')
         else:
             messages.error(request, 'Error updating session type. Please ensure the form is valid.')
     else:
