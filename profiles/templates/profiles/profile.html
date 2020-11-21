@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+    {% block page_header %}
+	    <h1 class="diary-heading">My <strong>Profile</strong></h1>
+	{% endblock %}
+	
+	{% block content %}
+        <div class="container overlay rounded">
+            <div class="row">
+    {% if request.user.is_authenticated %}
+                <div class="col-12">
+                    
+                </div>
+    {% else %}
+                <div class="col-12">
+                    <p class="font-weight-bold paragraph-margin"><a class="index-link" href="{% url 'account_signup' %}">Register</a> or <a class="index-link" href="{% url 'account_login' %}">Login</a> to view your profile.</p>
+                </div>
+    {% endif %}
+            </div>
+        </div>
+
+	{% endblock %}
