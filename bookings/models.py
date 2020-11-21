@@ -19,7 +19,7 @@ class Expert(models.Model):
 class Session(models.Model):
 
     Expert = models.ForeignKey('Expert', null=True, blank=True, on_delete=models.SET_NULL)
-    name = models.CharField(max_length=254, null=True)
+    name = models.CharField(max_length=254, default='')
     amount = models.IntegerField(validators=[MaxValueValidator(20)])
     length = models.TimeField()
     price = models.DecimalField(max_digits=6, decimal_places=2)

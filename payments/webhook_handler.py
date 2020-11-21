@@ -94,7 +94,7 @@ class StripeWH_Handler:
                 )
                 payment_exists = True
                 break
-            except Payment.DoesNotExist:
+            except payment.DoesNotExist:
                 attempt += 1
                 time.sleep(1)
         if payment_exists:
