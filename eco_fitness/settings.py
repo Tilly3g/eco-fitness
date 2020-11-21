@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'food_diary',
     'bag',
     'payments',
+    'profiles'
 ]
 
 MIDDLEWARE = [
