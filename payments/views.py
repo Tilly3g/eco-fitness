@@ -8,6 +8,8 @@ from .forms import PaymentForm
 from bag.contexts import bag_contents
 from .models import Payment, OrderLineItem
 from bookings.models import Session
+from profiles.models import UserProfile
+from profiles.forms import UserForm
 
 import stripe
 import json
@@ -101,7 +103,25 @@ def payment(request):
             currency=settings.STRIPE_CURRENCY,
         )
 
-        payment_form = PaymentForm()
+        # prefill the form with any info the user maintains in their profile
+        if request.user.is_authenticated:
+            try:
+                profile = UserProfile.objects.get(user=request.user)
+                payment_form = PaymentForm(initial={
+                    'full_name': profile.user.get_full_name(),
+                    'email': profile.user.email,
+                    'phone_number': profile.default_phone_number,
+                    'country': profile.default_country,
+                    'street_address1': profile.default_street_address1,
+                    'street_address2': profile.default_street_address2,
+                    'town_or_city': profile.default_town_or_city,
+                    'county': profile.default_county,
+                    'postcode': profile.default_postcode,
+                })
+            except UserProfile.DoesNotExist:
+                payment_form = PaymentForm()
+        else:
+            payment_form = PaymentForm()
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. \
@@ -123,8 +143,31 @@ def payment_success(request, order_number):
     """
     save_info = request.session.get('save_info')
     booking = get_object_or_404(Payment, order_number=order_number)
+
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+        # Attach the user's profile to the order
+        booking.user_profile = profile
+        booking.save()
+
+        # Save the user's info
+        if save_info:
+            profile_data = {
+                'email': booking.email,
+                'phone_number': booking.phone_number,
+                'country': booking.country,
+                'street_address1': booking.street_address1,
+                'street_address2': booking.street_address2,
+                'town_or_city': booking.town_or_city,
+                'county': booking.county,
+                'postcode': booking.postcode,
+            }
+            user_form = UserForm(profile_data, instance=profile)
+            if user_form.is_valid():
+                user_form.save()
+
     messages.success(request, f'Booking successfully processed! \
-        Your order number is {order_number}. A confirmation \
+        Your order number is {order_number|truncatechars:6}. A confirmation \
         email will be sent to {booking.email} and your Expert will be in touch shortly by phone or email to book in a time and date.')
 
     if 'bag' in request.session:

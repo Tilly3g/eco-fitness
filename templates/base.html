@@ -77,7 +77,7 @@
                                 </p>
                             </div>     
                         </a>
-                        <a class="nav-link active" href="#" id="profile-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link active {% if not request.user.is_authenticated %} add-magin-right {% endif %}" href="{% url 'bookings' %}" href="#" id="profile-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
                                 <div><i class="far fa-lg fa-user-circle"></i></div>
                                 <p class="">Profile</p>
@@ -104,7 +104,7 @@
                             </div>      
                         </a>
                     {% endif %}
-                        <a class="nav-link" href="{% url 'bookings' %}">
+                        <a class="nav-link {% if not request.user.is_authenticated %} add-magin {% endif %}" href="{% url 'bookings' %}">
                             <div class="text-center">
                                 <div><i class="far fa-list-alt fa-lg"></i></div>
                                 <p class="my-0">Meet Experts

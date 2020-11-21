@@ -14,7 +14,7 @@
                 <hr class="mt-1 mb-3">
             </div>
         </div>
-        {% if total %}
+        {% if total and not update_profile %}
             <p class="logo-font bg-white text-black py-1">Your Bag ({{ booking_count }})</p>
             <div class="bag-notification-wrapper">
                 {% for booking in bag_bookings %}

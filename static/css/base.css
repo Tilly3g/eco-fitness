@@ -107,6 +107,10 @@ body {
     margin-left: 1rem;
 }
 
+.add-margin-right {
+    margin-right: 1rem;
+}
+
 .nav-masthead .active {
     color: #fff;
 }

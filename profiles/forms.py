@@ -1,16 +1,11 @@
 from django import forms
-from .models import Payment
-
-# code from code institute boutique ado project
+from .models import UserProfile
 
 
-class PaymentForm(forms.ModelForm):
+class UserForm(forms.ModelForm):
     class Meta:
-        model = Payment
-        fields = ('full_name', 'email', 'phone_number',
-                  'street_address1', 'street_address2',
-                  'town_or_city', 'postcode', 'country',
-                  'county',)
+        model = UserProfile
+        exclude = ('user',)
 
     def __init__(self, *args, **kwargs):
         """
@@ -19,23 +14,22 @@ class PaymentForm(forms.ModelForm):
         """
         super().__init__(*args, **kwargs)
         placeholders = {
-            'full_name': 'Full Name',
-            'email': 'Email Address',
+            'email': 'Email',
             'phone_number': 'Phone Number',
-            'postcode': 'Postal Code',
-            'town_or_city': 'Town or City',
             'street_address1': 'Street Address 1',
             'street_address2': 'Street Address 2',
+            'town_or_city': 'Town or City',
             'county': 'County',
+            'postcode': 'Postal Code',
         }
 
-        self.fields['full_name'].widget.attrs['autofocus'] = True
+        self.fields['phone_number'].widget.attrs['autofocus'] = True
         for field in self.fields:
-            if field != 'country':
+            if field != '=country':
                 if self.fields[field].required:
                     placeholder = f'{placeholders[field]} *'
                 else:
                     placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
-            self.fields[field].widget.attrs['class'] = 'payment_form_input'
+            self.fields[field].widget.attrs['class'] = 'border-black rounded-0 profile-form-input'
             self.fields[field].label = False

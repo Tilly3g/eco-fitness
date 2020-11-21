@@ -50,7 +50,7 @@ form.addEventListener('submit', function(event) {
         'client_secret': clientSecret,
         'save_info': saveInfo,
     };
-    var url = '/payments/cache_payment_data/';
+    var url = 'payments/cache_payment_data/';
 
     $.post(url, postData).done(function () {
         stripe.confirmCardPayment(clientSecret, {
