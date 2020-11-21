@@ -11,7 +11,6 @@ class UserProfile(models.Model):
     A user profile model to save user billing info
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.CharField(max_length=254, null=True, blank=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     country = CountryField(blank_label='Country', null=True, blank=True)
     street_address1 = models.CharField(max_length=80, null=True, blank=True)

@@ -110,13 +110,13 @@ def payment(request):
                 payment_form = PaymentForm(initial={
                     'full_name': profile.user.get_full_name(),
                     'email': profile.user.email,
-                    'phone_number': profile.default_phone_number,
-                    'country': profile.default_country,
-                    'street_address1': profile.default_street_address1,
-                    'street_address2': profile.default_street_address2,
-                    'town_or_city': profile.default_town_or_city,
-                    'county': profile.default_county,
-                    'postcode': profile.default_postcode,
+                    'phone_number': profile.phone_number,
+                    'country': profile.country,
+                    'street_address1': profile.street_address1,
+                    'street_address2': profile.street_address2,
+                    'town_or_city': profile.town_or_city,
+                    'county': profile.county,
+                    'postcode': profile.postcode,
                 })
             except UserProfile.DoesNotExist:
                 payment_form = PaymentForm()
@@ -142,40 +142,40 @@ def payment_success(request, order_number):
     Successful payments
     """
     save_info = request.session.get('save_info')
-    booking = get_object_or_404(Payment, order_number=order_number)
+    order = get_object_or_404(Payment, order_number=order_number)
 
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
         # Attach the user's profile to the order
-        booking.user_profile = profile
-        booking.save()
+        order.user_profile = profile
+        order.save()
 
         # Save the user's info
         if save_info:
             profile_data = {
-                'email': booking.email,
-                'phone_number': booking.phone_number,
-                'country': booking.country,
-                'street_address1': booking.street_address1,
-                'street_address2': booking.street_address2,
-                'town_or_city': booking.town_or_city,
-                'county': booking.county,
-                'postcode': booking.postcode,
+                'email': order.email,
+                'phone_number': order.phone_number,
+                'country': order.country,
+                'street_address1': order.street_address1,
+                'street_address2': order.street_address2,
+                'town_or_city': order.town_or_city,
+                'county': order.county,
+                'postcode': order.postcode,
             }
             user_form = UserForm(profile_data, instance=profile)
             if user_form.is_valid():
                 user_form.save()
 
     messages.success(request, f'Booking successfully processed! \
-        Your order number is {order_number|truncatechars:6}. A confirmation \
-        email will be sent to {booking.email} and your Expert will be in touch shortly by phone or email to book in a time and date.')
+        Your order number is {order_number}. A confirmation \
+        email will be sent to {order.email} and your Expert will be in touch shortly by phone or email to book in a time and date.')
 
     if 'bag' in request.session:
         del request.session['bag']
 
     template = 'payments/payment_success.html'
     context = {
-        'booking': booking,
+        'order': order,
     }
 
     return render(request, template, context)

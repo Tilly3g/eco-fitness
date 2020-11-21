@@ -1,0 +1,1 @@
+Eco Fitness Confirmation of booking {{ booking.order_number }}

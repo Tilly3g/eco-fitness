@@ -37,7 +37,7 @@
                                                 {{ payment.order_number|truncatechars:6 }}
                                             </div>
                                         </td>
-                                        <td>{{ order.date }}</td>
+                                        <td>{{ payment.date }}</td>
                                         <td>
                                             <ul class="list-unstyled">
                                                 {% for item in payment.lineitems.all %}
