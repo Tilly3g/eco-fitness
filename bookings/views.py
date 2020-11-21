@@ -1,5 +1,12 @@
-from django.shortcuts import render
-from .models import Session
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.db.models.functions import Lower
+
+from .models import Session, Expert
+from .forms import SessionUpdate
+
 
 # Create your views here.
 
@@ -13,3 +20,71 @@ def all_bookings(request):
     }
 
     return render(request, 'bookings/bookings.html', context)
+
+
+@login_required
+def add_session(request):
+    """ Add a session type to the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'Opps, only administrators can do that.')
+        return redirect(reverse('home'))
+
+    if request.method == 'POST':
+        form = SessionUpdate(request.POST, request.FILES)
+        if form.is_valid():
+            session = form.save()
+            messages.success(request, 'Successfully added session type!')
+            return redirect(reverse('bookings'))
+        else:
+            messages.error(request, 'Error adding session type. Please ensure the form is valid.')
+    else:
+        form = SessionUpdate()
+        
+    template = 'bookings/add_session.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)
+
+
+@login_required
+def edit_session(request, product_id):
+    """ Edit an existing session type """
+    if not request.user.is_superuser:
+        messages.error(request, 'Oops, only administrators can do that.')
+        return redirect(reverse('home'))
+
+    session = get_object_or_404(Session, pk=session_id)
+    if request.method == 'POST':
+        form = SessionUpdate(request.POST, request.FILES, instance=session)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully updated session type!')
+            return redirect(reverse('bookings')
+        else:
+            messages.error(request, 'Error updating session type. Please ensure the form is valid.')
+    else:
+        form = SessionUpdate(instance=session)
+        messages.info(request, f'You are editing {session.name}')
+
+    template = 'bookings/edit_session.html'
+    context = {
+        'form': form,
+        'session': session,
+    }
+
+    return render(request, template, context)
+
+
+@login_required
+def delete_session(request, session_id):
+    """ Delete session type from the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'Oops, only administrators can do that.')
+        return redirect(reverse('home'))
+
+    session = get_object_or_404(Session, pk=session_id)
+    session.delete()
+    messages.success(request, 'Session type deleted!')
+    return redirect(reverse('bookings'))
