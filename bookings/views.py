@@ -46,6 +46,18 @@ def add_session(request):
     return render(request, template, context)
 
 
+def session_info(request, session_id):
+    """ A view to show session info for editing """
+
+    session = get_object_or_404(Session, pk=session_id)
+
+    context = {
+        'session': session,
+    }
+
+    return render(request, 'booking/booking_view.html', context)
+
+
 @login_required
 def edit_session(request, session_id):
     """ Edit an existing session type """

@@ -19,7 +19,24 @@
                         </a>
                     </p>
                     {% endif %}
-                    <p class="lead mb-0 text-left font-weight-bold">{{ food.Grams }}</p>
+                    <p class="lead mb-0 text-left font-weight-bold">Amount</p>
+                    <p class="lead mb-0 text-right font-weight-bold">{{ food.Grams }}g</p>
+                    <p class="lead mb-0 text-left font-weight-bold">Proten</p>
+                    <p class="lead mb-0 text-right font-weight-bold">{{ food.Protein }}g</p>
+                    <p class="lead mb-0 text-left font-weight-bold">Fat</p>
+                    <p class="lead mb-0 text-right font-weight-bold">{{ food.Fat }}g</p>
+                    <p class="lead mb-0 text-left font-weight-bold">Saturaded Fat</p>
+                    <p class="lead mb-0 text-right font-weight-bold">{{ food.Saturated_Fat }}g</p>
+                    <p class="lead mb-0 text-left font-weight-bold">Fiber</p>
+                    <p class="lead mb-0 text-right font-weight-bold">{{ food.Fiber }}g</p>
+                    <p class="lead mb-0 text-left font-weight-bold">Carbs</p>
+                    <p class="lead mb-0 text-right font-weight-bold">{{ food.Carbs }}g</p>
+                    {% if request.user.is_superuser %}
+                        <small class="ml-3">
+                            <a href="{% url 'edit_nutrition' food.id %}">Edit</a> | 
+                            <a class="text-danger" href="{% url 'delete_nutrition' food.id %}">Delete</a>
+                        </small>
+                    {% endif %}
                     <form class="form" action="{% url 'add_to_diary' food.id %}" method="POST">
                         {% csrf_token %}
                         <div class="form-row">
@@ -78,7 +95,7 @@
         function handleEnableDisable(itemId) {
             var currentValue = parseInt($(`#id_qty_${itemId}`).val());
             var minusDisabled = currentValue < 2;
-            var plusDisabled = currentValue > 98;
+            var plusDisabled = currentValue > 9998;
             $(`#decrement-qty_${itemId}`).prop('disabled', minusDisabled);
             $(`#increment-qty_${itemId}`).prop('disabled', plusDisabled);
         }

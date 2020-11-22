@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 from .models import Nutrition, Category
+from .forms import NutritionUpdate
 
 # Create your views here.
 
@@ -51,3 +53,71 @@ def food_item(request, food_id):
     }
 
     return render(request, 'nutrition/food.html', context)
+
+
+@login_required
+def add_nutrition(request):
+    """ Add nutritional information to the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'Opps, only administrators can do that.')
+        return redirect(reverse('home'))
+
+    if request.method == 'POST':
+        form = NutritionUpdate(request.POST, request.FILES)
+        if form.is_valid():
+            food = form.save()
+            messages.success(request, 'Successfully added nutritional information!')
+            return redirect(reverse('nutrition'))
+        else:
+            messages.error(request, 'Error adding nutritional information. Please ensure the form is valid.')
+    else:
+        form = NutritionUpdate()
+
+    template = 'nutrition/add_nutrition.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)
+
+
+@login_required
+def edit_nutrition(request, food_id):
+    """ Edit an existing food """
+    if not request.user.is_superuser:
+        messages.error(request, 'Oops, only administrators can do that.')
+        return redirect(reverse('home'))
+
+    food = get_object_or_404(Nutrition, pk=food_id)
+    if request.method == 'POST':
+        form = NutritionUpdate(request.POST, request.FILES, instance=food)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully updated nutritional information!')
+            return redirect(reverse('food_item', args=[food.id]))
+        else:
+            messages.error(request, 'Error updating nutritional information. Please ensure the form is valid.')
+    else:
+        form = NutritionUpdate(instance=food)
+        messages.info(request, f'You are editing {food.Food}')
+
+    template = 'nutrition/edit_nutrition.html'
+    context = {
+        'form': form,
+        'food': food,
+    }
+
+    return render(request, template, context)
+
+
+@login_required
+def delete_nutrition(request, food_id):
+    """ Delete nutritional info from the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'Oops, only administrators can do that.')
+        return redirect(reverse('home'))
+
+    food = get_object_or_404(Nutrition, pk=food_id)
+    food.delete()
+    messages.success(request, 'Nutritional information deleted!')
+    return redirect(reverse('nutrition'))

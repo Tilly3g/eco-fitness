@@ -43,12 +43,6 @@
                 <p class="my-0">£{{ booking.price }}</p>
               </td>
               <td class="py-3">
-                    {% if request.user.is_superuser %}
-                        <small class="ml-3">
-                            <a href="{% url 'edit_session' session.id %}">Edit</a> | 
-                            <a class="text-danger" href="{% url 'delete_session' session.id %}">Delete</a>
-                        </small>
-                    {% endif %}
                 <form
                   class="form"
                   action="{% url 'add_to_bag' booking.id %}"

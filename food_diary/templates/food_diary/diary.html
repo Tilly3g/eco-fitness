@@ -40,8 +40,7 @@
                                                 <p class="my-0">{{ item.calories|floatformat:0 }}</p>
                                             </td>
                                             <td class="py-3 w-25">
-                                                <a class="update-link text-info"><small>Update</small></a>
-                                                <a class="remove-item text-danger float-right" id="remove_{{ item.food_id }}" ><small>Remove</small></a>
+                                                <a class="remove-item text-danger" id="remove_{{ item.food_id }}" ><small>Remove</small></a>
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -83,7 +82,7 @@
         $('.remove-item').click(function(e) {
             var csrfToken = "{{ csrf_token }}";
             var itemId = $(this).attr('id').split('remove_')[1];
-            var url = `/diary/remove/${itemId}`;
+            var url = `remove/${itemId}`;
             var data = {'csrfmiddlewaretoken': csrfToken};
 
             $.post(url, data)
