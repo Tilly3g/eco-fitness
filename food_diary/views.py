@@ -1,4 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
+from django.contrib import messages
+
+from nutrition.models import Nutrition
 
 # Create your views here.
 
@@ -22,3 +25,21 @@ def add_to_diary(request, food_id):
 
     request.session['food_diary'] = diary
     return redirect(redirect_url)
+
+
+def remove_from_diary(request, food_id):
+    """Remove the food item from the diary completely"""
+
+    try:
+        food = get_object_or_404(Nutrition, pk=food_id)
+        diary = request.session.get('diary', {})
+
+        diary.pop(food_id)
+        messages.success(request, f'Removed {food.Food} from the calculator')
+
+        request.session['diary'] = diary
+        return HttpResponse(status=200)
+
+    except Exception as e:
+        messages.error(request, f'Error removing food item: {e}')
+        return HttpResponse(status=500)

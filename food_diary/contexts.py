@@ -47,6 +47,7 @@ def get_food(request):
         'calories': calories,
         'goal': goal,
         'calories_left': calories_left,
+        'total_calories': total_calories,
     }
 
     return context
