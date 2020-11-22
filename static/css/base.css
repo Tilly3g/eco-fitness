@@ -54,6 +54,7 @@ body {
     text-shadow: 0 .1rem .15rem rgb(0, 0, 0);
     box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
     z-index: -2;
+    font-family: 'Roboto', sans-serif;
 }
 
 .overlay {
@@ -80,6 +81,10 @@ body {
     padding-left: 0!important;
 }
 
+.heading {
+    font-family: 'Catamaran', sans-serif;
+}
+
 /*
  * Nav bar
  */
@@ -91,14 +96,8 @@ body {
     margin: 0;
 }
 
-.masthead-brand {
-    margin-top: 1rem;
-    margin-bottom: 0;
-    color: #fff
-}
-
 .nav-masthead .nav-link {
-    padding: .25rem 0;
+    padding: .35rem 0;
     font-weight: 700;
     color: rgba(255, 255, 255, .5);
     background-color: transparent;
@@ -108,12 +107,20 @@ body {
     margin-left: 1rem;
 }
 
+.navbar-links {
+    text-align: left;
+}
+
 .add-margin {
     margin-left: 1rem;
 }
 
 .add-margin-right {
     margin-right: 1rem;
+}
+
+.top-margin {
+    margin-top: 1rem;
 }
 
 .nav-masthead .active {
@@ -140,15 +147,6 @@ body {
     width: auto;
 }
 
-@media (min-width: 48em) {
-  .masthead-brand {
-        float: left;
-  }
-  .nav-masthead {
-        float: right;
-  }
-}
-
 @media (max-width: 285px) {
     .hide-on-xs {
         display: none;
@@ -173,15 +171,25 @@ body {
     font-weight: 700;
 }
 
+/*
+Messages
+*/
 .message-container {
     color: #000;
     position: fixed;
-    top: 10px;
-    right: 0px;
+    top: 75px;
+    right: 10px;
     z-index: 999999;
     text-shadow: none;
 }
 
+.custom-toast {
+    overflow: visible;
+}
+
+.toast-capper {
+    height: 2px;
+}
 
 /*
  * Footer

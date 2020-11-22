@@ -2,14 +2,14 @@
 {% load static %}
 
     {% block page_header %}
-	    <h1 class="diary-heading">Food <strong>Diary</strong></h1>
+	    <h1 class="heading">Food <strong>Diary</strong></h1>
 	{% endblock %}
 	
 	{% block content %}
         <div class="container overlay overlay-transparent rounded">
             <div class="row">
-                <div class="col-12 rmv-padding">
-	                <p class="lead font-weight-bold">Calculate your calorie intake each day here by adding your food to our calorie calculator.</p>
+                <div class="col-12">
+	                <p class="lead font-weight-bold top-margin">Calculate your calorie intake each day here by adding your food to our calorie calculator.</p>
                 </div>
     {% if request.user.is_authenticated %}
                 {% if food_items %}
@@ -57,10 +57,10 @@
                 {% else %}
                     <div class="col-12">
                         <p>Average daily calorie goal = 2000</p>
-                            <p class="lead mb-5">Add your food!</p>
-                            <a href="{% url 'nutrition' %}" class="btn btn-light rounded-0 btn-lg">
-                                <span class="icon"><i class= "fas fa-plus lg"></i></span>
-                            </a>
+                        <a href="{% url 'nutrition' %}" class="btn btn-lg text-white">
+                            <span class="icon"><i class= "fas fa-plus lg"></i></span>
+                            <div class=""><small>Add food</small></div>
+                        </a>
                         </div>
                 {% endif %}
     {% else %}

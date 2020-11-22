@@ -26,7 +26,9 @@
         crossorigin="anonymous"
         />
         <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/cover/">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
+        <!-- Google fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Roboto&display=swap" rel="stylesheet">
         
         <!-- Own CSS -->
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
@@ -48,10 +50,6 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"
         ></script>
-        <!-- moment.js JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
-        <!-- tempusdominus JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-2JBCbWoMJPH+Uj7Wq5OLub8E5edWHlTM4ar/YJkZh3plwB2INhhOC3eDoqHm1Za/ZOSksrLlURLoyXVdfQXqwg==" crossorigin="anonymous"></script>
         <!-- font awesome JS -->
         <script src="https://kit.fontawesome.com/5297ed100d.js" crossorigin="anonymous"></script>
         <!-- Stripe -->
@@ -68,61 +66,78 @@
         <div class="row no-margin container-fluid">
             <header class="masthead mb-auto container-fluid rounded-bottom">
                 <div class="inner">
-                    <a href="{% url 'home' %}"><h3 class="masthead-brand">Eco <strong>Fitness</strong></h3></a>
-                    <nav class="nav nav-masthead justify-content-center">
-                        <a class="nav-link hide-on-xs" href="{% url 'home' %}">
-                            <div class="text-center">
-                                <div><i class="fas fa-home fa-lg"></i></div>
-                                <p class="my-0">Home
-                                </p>
-                            </div>     
-                        </a>
-                        <a class="nav-link active {% if not request.user.is_authenticated %} add-magin-right {% endif %}" href="#" id="profile-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="text-center">
-                                <div><i class="far fa-lg fa-user-circle"></i></div>
-                                <p class="">Profile</p>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu border-0" aria-labelledby="profile-options">
-                            {% if request.user.is_authenticated %}
-                                {% if request.user.is_superuser %}
-                                    <a href="#" class="dropdown-item">Product Management</a>
+                    <nav class="navbar navbar-expand-md nav-masthead">
+                        <a href="{% url 'home' %}"><h3 class="masthead-brand mr-auto">Eco <strong>Fitness</strong></h3></a>
+                        <button class="navbar-toggler text-white custom-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="collapse navbar-collapse navbar-links" id="navbarSupportedContent">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link hide-on-xs" href="{% url 'home' %}">
+                                        <div class="text-center">
+                                            <div><i class="fas fa-home fa-lg"></i></div>
+                                            <p class="my-0">Home
+                                            </p>
+                                        </div>     
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link active" href="#" id="profile-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="text-center">
+                                            <div><i class="far fa-lg fa-user-circle"></i></div>
+                                            <p class="">Profile</p>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu border-0" aria-labelledby="profile-options">
+                                        {% if request.user.is_authenticated %}
+                                            {% if request.user.is_superuser %}
+                                                <a href="#" class="dropdown-item">Product Management</a>
+                                            {% endif %}
+                                            <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
+                                            <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                                        {% else %}
+                                            <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                                            <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                                {% if request.user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'diary' %}">
+                                        <div class="text-center">
+                                            <div><i class="far fa-list-alt fa-lg"></i></div>
+                                            <p class="my-0">Food Diary
+                                            </p>
+                                        </div>      
+                                    </a>
+                                </li>
                                 {% endif %}
-                                <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
-                                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
-                            {% else %}
-                                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-                                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
-                            {% endif %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'bookings' %}">
+                                        <div class="text-center">
+                                            <div><i class="far fa-calendar-alt fa-lg"></i></div>
+                                            <p class="my-0">Book Now
+                                            </p>
+                                        </div>      
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'view_bag' %}">
+                                        <div class="text-center">
+                                            <div><i class="fas fa-lg fa-shopping-cart"></i></div>
+                                            <p class="my-0">
+                                                {% if total %}
+                                                    £{{ total|floatformat:2 }}
+                                                {% else %}
+                                                    £0.00
+                                                {% endif %}
+                                            </p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                    {% if request.user.is_authenticated %}
-                        <a class="nav-link" href="{% url 'diary' %}">
-                            <div class="text-center add-margin">
-                                <div><i class="far fa-list-alt fa-lg"></i></div>
-                                <p class="my-0">Food Diary
-                                </p>
-                            </div>      
-                        </a>
-                    {% endif %}
-                        <a class="nav-link {% if not request.user.is_authenticated %} add-magin {% endif %}" href="{% url 'bookings' %}">
-                            <div class="text-center">
-                                <div><i class="far fa-list-alt fa-lg"></i></div>
-                                <p class="my-0">Meet Experts
-                                </p>
-                            </div>      
-                        </a>
-                        <a class="nav-link add-margin" href="{% url 'view_bag' %}">
-                            <div class="text-center">
-                                <div><i class="fas fa-lg fa-shopping-cart"></i></div>
-                                <p class="my-0">
-                                    {% if total %}
-                                        £{{ total|floatformat:2 }}
-                                    {% else %}
-                                        £0.00
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </a>
                     </nav>
                 </div>
             </header>
