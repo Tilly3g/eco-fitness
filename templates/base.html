@@ -67,7 +67,7 @@
             <header class="masthead mb-auto container-fluid rounded-bottom">
                 <div class="inner">
                     <nav class="navbar navbar-expand-md nav-masthead">
-                        <a href="{% url 'home' %}"><h3 class="masthead-brand mr-auto">Eco <strong>Fitness</strong></h3></a>
+                        <a href="{% url 'home' %}"><h3 class="masthead-brand text-white mr-auto">Eco <strong>Fitness</strong></h3></a>
                         <button class="navbar-toggler text-white custom-button" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"><i class="fas fa-chevron-down"></i></span>
                         </button>
@@ -159,18 +159,12 @@
             {% endfor %}
                 </div>
             {% endif %} 
-            <div class="d-flex w-100 p-3 mx-auto flex-column">
+            <div class="d-flex w-100 h-100 p-3 mx-auto flex-column">
             {% block page_header %} 
             {% endblock %} 
             
             {% block content %} 
             {% endblock %}
-
-                <footer class="mastfoot mt-auto">
-                    <div class="inner">
-                        <a href="#">Contact</a>
-                    </div>
-                </footer>
             </div>
         </div>
 

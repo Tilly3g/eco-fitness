@@ -1,9 +1,13 @@
 /*--- Bootstrap template 'cover' css with own modifications ---*/
 /* Links */
-a,
+a {
+    color: #838d8a;
+}
+
 a:focus,
 a:hover {
-    color: #fff;
+    color: #000;
+    text-decoration: none;
 }
 
 /* Override auto box-sizing from bootstrap */
@@ -16,43 +20,35 @@ a:hover {
 } */
 
 /* Custom default button */
-.btn-secondary,
+/* .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
     color: #333;
-    text-shadow: none; /* Prevent inheritance from `body` */
+    text-shadow: none; 
     background-color: #fff;
     border: .05rem solid #fff;
 }
-
+*/
 
 /*
  * Base structure
  */
 
 html {
-    height: auto;
+    height: 100%;
     width: 100%;
     background-color: #333;
 }
 
-@media (min-width: 992px) {
-  html,
-  body {
-        height: 100%;
-        top: 0;
-        left: 0;
-  }
-}
 
-body {
+
+body, html {
     background: url("/media/background-original.jpg") no-repeat center center fixed;
     background-size: cover;
     display: -ms-flexbox;
     display: flex;
     color: #fff;
     text-shadow: 0 .1rem .15rem rgb(0, 0, 0);
-    box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
     z-index: -2;
     font-family: 'Roboto', sans-serif;
 }
@@ -83,6 +79,20 @@ body {
 
 .heading {
     font-family: 'Catamaran', sans-serif;
+}
+
+.btt-button {
+    height: 42px;
+    width: 42px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.btt-link,
+.update-link,
+.remove-item {
+    cursor: pointer;
 }
 
 /*
@@ -157,7 +167,20 @@ body {
  * Home page
  */
 .paragraph-margin {
-    margin-bottom: 10%;
+    margin-bottom: 2rem;
+}
+
+.p-margin-top {
+    margin-top: 1rem;
+}
+
+.index-link {
+    color:aquamarine;
+}
+
+.index-link:hover,
+.index-link:active {
+    color: #65cfab;
 }
 
 /*
