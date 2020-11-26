@@ -7,26 +7,25 @@
 	{% endblock %}
 	
 	{% block content %}
-        <div class="container-fluid overlay overlay-transparent rounded">
+        <div class="container overlay rounded">
             <div class="row">
                 <div class="col">
                     {% if bag_bookings %}
-                    <div class="table-responsive rounded">
-                    <table class="table table-sm table-borderless">
-                            <thead class="text-black">
+                    <div class="table-responsive rounded mt-4">
+                    <table class="table table-sm table-borderless text-white">
+                            <thead>
                                 <tr>
-                                    <th scope="col">Session type</th>
-                                    <th scope="col">Duration</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Qty</th>
-                                    <th scope="col">Subtotal</th>
+                                    <th scope="col"><strong>Session</strong></th>
+                                    <th scope="col"><strong>Price</strong></th>
+                                    <th scope="col"><strong>Quantity</strong></th>
+                                    <th scope="col"><strong>Subtotal</strong></th>
                                 </tr>
                             </thead>
 
                             {% for booking in bag_bookings %}
                                 <tr>
                                     <td class="py-3">
-                                        <p class="my-0"><strong>{{ booking.booking.name }}</strong></p>
+                                        <p class="my-0"><strong>{{ booking.booking.name }} session</strong></p>
                                         <p class="my-0"><strong>With: </strong>{% if booking.booking.Expert %}{{ booking.booking.Expert.friendly_name }}{% else %}N/A{% endif %}</p>
                                     </td>
                                     <td class="py-3">
@@ -38,8 +37,7 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <button class="decrement-qty btn btn-sm btn-black rounded-0" 
-                                                            data-booking_id="{{ booking.booking_id }}" id="decrement-qty_{{ booking.booking_id }}">
+                                                        <button class="decrement-qty btn btn-sm btn-info" data-booking_id="{{ booking.booking_id }}" id="decrement-qty_{{ booking.booking_id }}">
                                                             <span>
                                                                 <i class="fas fa-minus fa-sm"></i>
                                                             </span>
@@ -50,7 +48,7 @@
                                                         data-booking_id="{{ booking.booking_id }}"
                                                         id="id_qty_{{ booking.booking_id }}">
                                                     <div class="input-group-append">
-                                                        <button class="increment-qty btn btn-sm btn-black rounded-0"
+                                                        <button class="increment-qty btn btn-sm btn-info"
                                                             data-booking_id="{{ booking.booking_id }}" id="increment-qty_{{ booking.booking_id }}">
                                                             <span>
                                                                 <i class="fas fa-plus fa-sm"></i>
@@ -60,8 +58,8 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <a class="update-link text-info"><small>Update</small></a>
-                                        <a class="remove-booking text-danger float-right" id="remove_{{ booking.booking_id }}"><small>Remove</small></a>
+                                        <a class="update-link btn btn-sm btn-info"><small>Update</small></a>
+                                        <a class="update-link remove-booking btn btn-sm btn-danger float-right" id="remove_{{ booking.booking_id }}"><small>Remove</small></a>
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0">£{{ booking.booking.price | subtotal:booking.quantity }}</p>
@@ -75,13 +73,13 @@
                             </tr>
                             <tr>
                                 <td colspan="5" class="text-right">
-                                    <a href="{% url 'bookings' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                    <a href="{% url 'bookings' %}" class="btn btn-lg text-white">
                                         <span class="icon">
                                             <i class="fas fa-chevron-left"></i>
                                         </span>
-                                        <span class="text-uppercase">Add bookings</span>
+                                        <span>Add more bookings</span>
                                     </a>
-                                    <a href="{% url 'payment' %}" class="btn btn-black rounded-0 btn-lg">
+                                    <a href="{% url 'payment' %}" class="btn btn-lg text-white">
                                         <span class="text-uppercase">Make secure payment</span>
                                         <span class="icon">
                                             <i class="fas fa-lock"></i>

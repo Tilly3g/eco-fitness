@@ -52,10 +52,10 @@ def session_info(request, session_id):
     session = get_object_or_404(Session, pk=session_id)
 
     context = {
-        'session': session,
+        'booking': session,
     }
 
-    return render(request, 'booking/booking_view.html', context)
+    return render(request, 'bookings/booking_view.html', context)
 
 
 @login_required

@@ -1,0 +1,57 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block page_header %}
+<h1 class="heading">Available <strong>Sessions</strong></h1>
+{% endblock %} 
+
+{% block content %}
+<div class="container overlay rounded">
+  <div class="row">
+    <div class="col-12 mt-3">
+        <div class="table-responsive rounded">
+          <table class="table table-sm table-borderless text-white">
+                <thead>
+                    <tr>
+                        <th scope="col">Session</th>
+                        <th scope="col">Expert</th>
+                        <th scope="col">duration</th>
+                        <th scope="col">Block</th>
+                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-3">
+                            <p class="my-0"><strong>{{ booking.name }}</strong></p>
+                        </td>
+                        <td class="py-3">
+                            <p class="my-0"><strong>{{ booking.Expert.friendly_name }}</strong></p>
+                        </td>
+                        <td class="py-3">
+                            <p class="my-0">{{ booking.length }}</p>
+                        </td>
+                        <td class="py-3">
+                            <p class="my-0">{{ booking.amount }}</p>
+                        </td>
+                        <td class="py-3">
+                            <p class="my-0">£{{ booking.price }}</p>
+                        </td>
+                        <td class="py-3">
+                            
+                        </td>
+                    </tr>
+                </tbody>
+          </table>
+        </div>
+      </div>
+        {% if request.user.is_superuser %}
+            <p class="ml-3 mt-3 float-right">
+                <a class="btn btn-sm btn-info" href="{% url 'edit_session' booking.id %}">Edit</a> | 
+                <a class="btn btn-sm btn-danger" href="{% url 'delete_session' booking.id %}">Delete</a>
+            </p>
+        {% endif %}
+    </div>
+  </div>
+  {% endblock %} 

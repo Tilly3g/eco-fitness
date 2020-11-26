@@ -2,109 +2,107 @@
 {% load static %} 
 
 {% block page_header %}
-<div class="container header-container">
-  <div class="row">
-    <div class="col"></div>
-  </div>
-</div>
+<h1 class="heading">Available <strong>Sessions</strong></h1>
 {% endblock %} 
 
 {% block content %}
 <div class="container overlay rounded">
   <div class="row">
     <div class="col-12">
-      <p>
-        Please see session options below to speak with one of our experts for
-        diet plans
-      </p>
-      <div class="col-12">
+        <h2 class="mt-3 mb-3">Session Types</h2>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <h4 class="mt-3">Taster session</h4>
+        <p>
+        These are perfect if you want to find out more about what we can do for you, get a bit of initial advice on how to acheive your goals and some great swaps to make in your health routines that will also help the planet. Remember, there's no such thing as a silly question!
+        </p>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <h4 class="mt-3">Single session</h4>
+        <p>
+        These are a bit more in depth than the taster sessions. You'll spend a full 2 hours with one of our experts to discuss what you want to acheive, how best to do this, and after they will send you a taylored meal or exercise plan for one week.
+        </p>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <h4 class="mt-3">Regular sessions</h4>
+        <p>
+        These sessions come in blocks of 6 or 10 and you'll meet with your expert once a week. The first session will be 2 hours long, in order for our experts to really delve in to your goals with you and draw up exercise and meal plans. You'll then meet once a week for an hour each time to discuss progress, what is and isn't working and adjust the plans accordingly.
+        </p>
+    </div>
+    <div class="col-12 mt-3">
         <div class="table-responsive rounded">
-          <table class="table table-sm table-borderless">
-            <thead class="text-black">
-              <tr>
-                <th scope="col">Session type</th>
-                <th scope="col">duration</th>
-                <th scope="col">Expert</th>
-                <th scope="col">Price</th>
-              </tr>
-            </thead>
+          <table class="table table-sm table-borderless text-white">
+                <thead>
+                    <tr>
+                        <th scope="col">Session</th>
+                        <th scope="col">Expert</th>
+                        <th scope="col">duration</th>
+                        <th scope="col">Block</th>
+                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
             {% for booking in bookings %}
-            <tr>
-              <td class="py-3">
-                <p class="my-0"><strong>{{ booking.name }}</strong></p>
-              </td>
-              <td class="py-3">
-                <p class="my-0">{{ booking.length }}</p>
-              </td>
-              <td class="py-3">
-                <p class="my-0">{{ booking.Expert.friendly_name }}</p>
-              </td>
-              <td class="py-3">
-                <p class="my-0">£{{ booking.price }}</p>
-              </td>
-              <td class="py-3">
-                <form
-                  class="form"
-                  action="{% url 'add_to_bag' booking.id %}"
-                  method="POST">
-                  {% csrf_token %}
-                  <div class="form-row">
-                    <div class="col-12">
-                      <p class="mt-3"><strong>Quantity:</strong></p>
-                      <div class="form-group w-50">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <button
-                              class="decrement-qty btn btn-black rounded-0"
-                              data-food_id="{{ booking.id }}"
-                              id="decrement-qty_{{ booking.id }}"
-                            >
-                              <span class="icon">
-                                <i class="fas fa-minus"></i>
-                              </span>
-                            </button>
-                          </div>
-                          <input
-                            class="form-control qty_input"
-                            type="number"
-                            name="quantity"
-                            value="1"
-                            min="1"
-                            max="99"
-                            data-booking_id="{{ booking.id }}"
-                            id="id_qty_{{ booking.id }}"
-                          />
-                          <div class="input-group-append">
-                            <button
-                              class="increment-qty btn btn-black rounded-0"
-                              data-booking_id="{{ booking.id }}"
-                              id="increment-qty_{{ booking.id }}"
-                            >
-                              <span class="icon">
-                                <i class="fas fa-plus"></i>
-                              </span>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <input
-                        type="submit"
-                        class="btn btn-black rounded-0 text-uppercase mt-5"
-                        value="Add to Bag"
-                      />
-                    </div>
-                    <input
-                      type="hidden"
-                      name="redirect_url"
-                      value="{{ request.path }}"
-                    />
-                  </div>
-                </form>
-              </td>
-            </tr>
+                <tbody>
+                    <tr>
+                        <td class="py-3">
+                            <p class="my-0"><strong>{{ booking.name }}</strong></p>
+                        </td>
+                        <td class="py-3">
+                            <p class="my-0"><strong>{{ booking.Expert.friendly_name }}</strong></p>
+                        </td>
+                        <td class="py-3">
+                            <p class="my-0">{{ booking.length }}</p>
+                        </td>
+                        <td class="py-3">
+                            <p class="my-0">{{ booking.amount }}</p>
+                        </td>
+                        <td class="py-3">
+                            <p class="my-0">£{{ booking.price }}</p>
+                        </td>
+                        <td class="py-3">
+                            <form class="form" action="{% url 'add_to_bag' booking.id %}" method="POST">
+                            {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="col-12">
+                                        <div class="form-group w-50">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <button
+                                                    class="decrement-qty btn btn-sm btn-info" data-food_id="{{ booking.id }}" id="decrement-qty_{{ booking.id }}">
+                                                        <span class="icon">
+                                                            <i class="fas fa-minus"></i>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <input class="form-control qty_input" type="number" name="quantity" value="1" min="1" max="99" data-booking_id="{{ booking.id }}" id="id_qty_{{ booking.id }}"/>
+                                                <div class="input-group-append">
+                                                    <button
+                                                    class="increment-qty btn btn-sma btn-info" data-booking_id="{{ booking.id }}" id="increment-qty_{{ booking.id }}">
+                                                        <span class="icon">
+                                                            <i class="fas fa-plus"></i>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="submit" class="btn btn-outline-light text-uppercase mt-0 mb-2" value="Add to Bag"/>
+                                        {% if request.user.is_superuser %}
+                                                <a class="btn btn-sm btn-info" href="{% url 'session_info' booking.id %}">Manage</a>
+                                        {% endif %}
+                                    </div>
+                                    <input
+                                    type="hidden"
+                                    name="redirect_url"
+                                    value="{{ request.path }}"
+                                    />
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
             {% endfor %}
           </table>
         </div>
