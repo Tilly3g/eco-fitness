@@ -58,8 +58,8 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <a class="update-link btn btn-sm btn-info"><small>Update</small></a>
-                                        <a class="update-link remove-booking btn btn-sm btn-danger float-right" id="remove_{{ booking.booking_id }}"><small>Remove</small></a>
+                                        <a class="update-link btn btn-sm btn-info">Update</a>
+                                        <a class="update-link remove-booking btn btn-sm btn-danger float-right" id="remove_{{ booking.booking_id }}">Remove</a>
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0">£{{ booking.booking.price | subtotal:booking.quantity }}</p>
@@ -80,9 +80,9 @@
                                         <span>Add more bookings</span>
                                     </a>
                                     <a href="{% url 'payment' %}" class="btn btn-lg text-white">
-                                        <span class="text-uppercase">Make secure payment</span>
+                                        <span>Make secure payment</span>
                                         <span class="icon">
-                                            <i class="fas fa-lock"></i>
+                                            <i class="fas fa-credit-card"></i>
                                         </span>
                                     </a>
                                 </td>
@@ -91,8 +91,8 @@
                     </div>
                     </div>
                     {% else %}
-                    <p class="lead mb-5">You haven't added any sessions to your cart.</p>
-                    <a href="{% url 'bookings' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                    <p class="lead mb-5 mt-3">You haven't added any sessions to your cart.</p>
+                    <a href="{% url 'bookings' %}" class="btn btn-secondary btn-lg mb-4">
                         <span class="icon"><i class="far fa-calendar-alt"></i></span>
                         <span class="icon">Book a session today!</span>
                     </a>

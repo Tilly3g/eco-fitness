@@ -92,7 +92,8 @@
                                     <div class="dropdown-menu border-0" aria-labelledby="profile-options">
                                         {% if request.user.is_authenticated %}
                                             {% if request.user.is_superuser %}
-                                                <a href="#" class="dropdown-item">Product Management</a>
+                                                <a href="{% url 'add_session' %}" class="dropdown-item">Booking Management</a>
+                                                <a href="{% url 'add_nutrition' %}" class="dropdown-item">Nutrition Management</a>
                                             {% endif %}
                                             <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
                                             <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
