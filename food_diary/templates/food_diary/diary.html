@@ -2,7 +2,7 @@
 {% load static %}
 
     {% block page_header %}
-	    <h1 class="heading">Food <strong>Diary</strong></h1>
+	    <h1 class="diary-heading">Food <strong>Diary</strong></h1>
 	{% endblock %}
 	
 	{% block content %}
@@ -77,18 +77,17 @@
     {{ block.super }}
 
     <script type="text/javascript">
-
-        // Remove item and reload on click
+        // Remove food item and reload on click
         $('.remove-food').click(function(e) {
-            var csrfToken = "{{ csrf_token }}";
-            var foodId = $(this).attr('id').split('remove_')[1];
-            var url = `/diary/remove/${foodId}`;
-            var data = {'csrfmiddlewaretoken': csrfToken};
+        var csrfToken = "{{ csrf_token }}";
+        var itemId = $(this).attr('id').split('remove_')[1];
+        var url = `/diary/remove/${itemId}`;
+        var data = {'csrfmiddlewaretoken': csrfToken};
 
-            $.post(url, data)
-            .done(function() {
-                location.reload();
-            });
-        })
+        $.post(url, data)
+         .done(function() {
+             location.reload();
+         });
+    })
     </script>
 {% endblock %}

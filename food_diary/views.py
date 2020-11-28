@@ -35,12 +35,12 @@ def remove_from_diary(request, food_id):
 
     try:
         food = get_object_or_404(Nutrition, pk=food_id)
-        diary = request.session.get('diary', {})
+        diary = request.session.get('food_diary', {})
 
         diary.pop(food_id)
         messages.success(request, f'Removed {food.Food} from the calculator')
 
-        request.session['diary'] = diary
+        request.session['food_diary'] = diary
         return HttpResponse(status=200)
 
     except Exception as e:
