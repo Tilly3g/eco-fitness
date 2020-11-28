@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .models import Session, Expert
+from .models import Session
 from .forms import SessionUpdate
 
 
@@ -31,7 +31,7 @@ def add_session(request):
         form = SessionUpdate(request.POST, request.FILES)
         if form.is_valid():
             session = form.save()
-            messages.success(request, 'Successfully added session type!')
+            messages.success(request, f'Successfully added {session.name} session with {session.Expert}!')
             return redirect(reverse('bookings'))
         else:
             messages.error(request, 'Error adding session type. Please ensure the form is valid.')
@@ -67,16 +67,16 @@ def edit_session(request, session_id):
 
     session = get_object_or_404(Session, pk=session_id)
     if request.method == 'POST':
-        form = SessionUpdate(request.POST, request.FILES, instance=session)
+        form = SessionUpdate(request.POST, instance=session)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Successfully updated session type!')
+            messages.success(request, f'Successfully updated {session.name} session with {session.Expert}!')
             return redirect('bookings')
         else:
             messages.error(request, 'Error updating session type. Please ensure the form is valid.')
     else:
         form = SessionUpdate(instance=session)
-        messages.info(request, f'You are editing {session.name}')
+        messages.info(request, f'You are editing {session.name} session with {session.Expert}.')
 
     template = 'bookings/edit_session.html'
     context = {
@@ -96,5 +96,5 @@ def delete_session(request, session_id):
 
     session = get_object_or_404(Session, pk=session_id)
     session.delete()
-    messages.success(request, 'Session type deleted!')
+    messages.success(request, f'{session.name} session with {session.Expert} deleted!')
     return redirect(reverse('bookings'))

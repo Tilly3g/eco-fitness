@@ -14,10 +14,9 @@ class SessionUpdate(forms.ModelForm):
         experts = Expert.objects.all()
         session_types = SessionTypes.objects.all()
         friendly_names = [(expert.id, expert.get_friendly_name()) for expert in experts]
+        session_names = [(sesh.id, sesh.name) for sesh in session_types]
 
-        self.fields['expert'].choices = friendly_names
+        self.fields['Expert'].choices = friendly_names
+        self.fields['name'].choices = session_names
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'border-black rounded-0'
-        self.fields['name'].choices = session_types
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'border-black rounded-0'
+            field.widget.attrs['class'] = 'border-black'

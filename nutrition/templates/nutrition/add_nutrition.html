@@ -8,13 +8,13 @@
 {% block content %}
     <div class="container overlay rounded">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 col-md-6 offset-md-3 mt-3">
                 <form method="POST" action="{% url 'add_nutrition' %}" class="form mb-2" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form | crispy }}
                     <div class="text-right">
-                        <a class="btn btn-outline-black rounded-0" href="{% url 'nutrition' %}">Cancel</a>
-                        <button class="btn btn-black rounded-0" type="submit">Add Food</button>
+                        <a class="btn btn-danger" href="{% url 'nutrition' %}">Cancel</a> | 
+                        <button class="btn btn-info" type="submit">Add Food</button>
                     </div>
                 </form>
             </div>

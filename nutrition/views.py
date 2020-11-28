@@ -63,10 +63,10 @@ def add_nutrition(request):
         return redirect(reverse('home'))
 
     if request.method == 'POST':
-        form = NutritionUpdate(request.POST, request.FILES)
+        form = NutritionUpdate(request.POST)
         if form.is_valid():
             food = form.save()
-            messages.success(request, 'Successfully added nutritional information!')
+            messages.success(request, f'Successfully added nutritional information for {food.Food}!')
             return redirect(reverse('nutrition'))
         else:
             messages.error(request, 'Error adding nutritional information. Please ensure the form is valid.')
@@ -90,10 +90,10 @@ def edit_nutrition(request, food_id):
 
     food = get_object_or_404(Nutrition, pk=food_id)
     if request.method == 'POST':
-        form = NutritionUpdate(request.POST, request.FILES, instance=food)
+        form = NutritionUpdate(request.POST, instance=food)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Successfully updated nutritional information!')
+            messages.success(request, f'Successfully updated nutritional information for {food.Food}!')
             return redirect(reverse('food_item', args=[food.id]))
         else:
             messages.error(request, 'Error updating nutritional information. Please ensure the form is valid.')
@@ -119,5 +119,5 @@ def delete_nutrition(request, food_id):
 
     food = get_object_or_404(Nutrition, pk=food_id)
     food.delete()
-    messages.success(request, 'Nutritional information deleted!')
+    messages.success(request, f'Nutritional information deleted for {food.Food}!')
     return redirect(reverse('nutrition'))
