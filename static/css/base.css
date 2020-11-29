@@ -208,8 +208,35 @@ Messages
 }
 
 /*
- * Footer
+ * Media queries
  */
-.mastfoot {
-    color: rgba(255, 255, 255, .5);
+/* Slightly larger container on xl screens */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 767px) {
+
+    .nav-link {
+        padding: 0.15rem;
+    }
+
+    .nav-link i.fa-lg {
+        font-size: 1rem;
+    }
+
+    .increment-qty, .decrement-qty {
+        padding: .1rem .3rem !important;
+    }
+
+    .form-group {
+        width: 100%!important;
+    }
+
+    .no-margin-sm {
+        padding-right: 0;
+    }
+
 }

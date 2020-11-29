@@ -31,7 +31,7 @@
                                     <td class="py-3">
                                         <p class="my-0">£{{ booking.booking.price }}</p>
                                     </td>
-                                    <td class="py-3 w-25">
+                                    <td class="py-3">
                                         <form class="form update-form" method="POST" action="{% url 'adjust_bag' booking.booking_id %}">
                                             {% csrf_token %}
                                             <div class="form-group">
@@ -58,7 +58,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <a class="update-link btn btn-sm btn-info">Update</a>
+                                        <a class="update-link btn btn-sm btn-info float-right ml-1 mb-1">Update</a>
                                         <a class="update-link remove-booking btn btn-sm btn-danger float-right" id="remove_{{ booking.booking_id }}">Remove</a>
                                     </td>
                                     <td class="py-3">

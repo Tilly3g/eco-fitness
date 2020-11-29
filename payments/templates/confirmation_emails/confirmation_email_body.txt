@@ -5,7 +5,7 @@ We have confirmed your booking with {{ booking.Expert.friendly_name }}. Please s
 booking Number: {{ booking.booking_number }}
 booking Date: {{ booking.date }}
 
-booking Total: ${{ booking.booking_total }}
+booking Total: £{{ booking.booking_total }}
 
 Your Expert will be in touch soon to schedule your sessions, look out for their email! If they don't receive a reply within a week they'll give you a call on {{ booking.phone_number }} to confirm you received it.
 
