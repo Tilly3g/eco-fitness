@@ -16,7 +16,7 @@ def add_to_diary(request, food_id):
 
     food = get_object_or_404(Nutrition, pk=food_id)
     amount = int(request.POST.get('amount'))
-    redirect_url = request.POST.get('redirect_url')
+    redirect_url = request.POST.get('redirect_url' or '/')
     diary = request.session.get('food_diary', {})
 
     if food_id in list(diary.keys()):

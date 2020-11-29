@@ -3,9 +3,9 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 
-from .models import Payment, OrderLineItem
 from bookings.models import Session
 from profiles.models import UserProfile
+from .models import Payment, OrderLineItem
 
 import json
 import time

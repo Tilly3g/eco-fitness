@@ -16,7 +16,7 @@ def add_to_bag(request, booking_id):
 
     booking = get_object_or_404(Session, pk=booking_id)
     quantity = int(request.POST.get('quantity'))
-    redirect_url = request.POST.get('redirect_url')
+    redirect_url = request.POST.get('redirect_url' or '/')
     bag = request.session.get('bag', {})
 
     if booking_id in list(bag.keys()):
