@@ -27,7 +27,7 @@ def add_to_bag(request, booking_id):
         messages.success(request, f'Added {booking.name} session to your bag')
 
     request.session['bag'] = bag
-    return redirect(redirect_url)
+    return redirect(redirect_url or '/')
 
 
 def adjust_bag(request, booking_id):

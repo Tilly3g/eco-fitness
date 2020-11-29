@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.conf import settings
 from django.views.decorators.http import require_POST
 
-from .forms import PaymentForm
 from bag.contexts import bag_contents
+from .forms import PaymentForm
 from .models import Payment, OrderLineItem
 from bookings.models import Session
 from profiles.models import UserProfile

@@ -16,7 +16,7 @@ def add_to_diary(request, food_id):
 
     food = get_object_or_404(Nutrition, pk=food_id)
     amount = int(request.POST.get('amount'))
-    redirect_url = request.POST.get('redirect_url' or '/')
+    redirect_url = request.POST.get('redirect_url')
     diary = request.session.get('food_diary', {})
 
     if food_id in list(diary.keys()):
@@ -27,7 +27,7 @@ def add_to_diary(request, food_id):
         messages.success(request, f'Added {food.Food} to your diary')
 
     request.session['food_diary'] = diary
-    return redirect(redirect_url)
+    return redirect(redirect_url or '/')
 
 
 def remove_from_diary(request, food_id):
