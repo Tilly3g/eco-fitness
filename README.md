@@ -2,6 +2,8 @@
 
 <a href="https://snyk.io/test/github/Tilly3g/eco-fitness?targetFile=requirements.txt"><img src="https://snyk.io/test/github/Tilly3g/eco-fitness/badge.svg?targetFile=requirements.txt" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/Tilly3g/eco-fitness?targetFile=requirements.txt" style="max-width:100%;"></a>
 
+[![deepcode](https://www.deepcode.ai/api/gh/badge?key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwbGF0Zm9ybTEiOiJnaCIsIm93bmVyMSI6IlRpbGx5M2ciLCJyZXBvMSI6ImVjby1maXRuZXNzIiwiaW5jbHVkZUxpbnQiOmZhbHNlLCJhdXRob3JJZCI6MjU0MjMsImlhdCI6MTYwNjY3MTA1N30.jt3W87VrgzRFFr4iQ6BdVsB3D0n42X36uxNuVhG-nwU)](https://www.deepcode.ai/app/gh/Tilly3g/eco-fitness/_/dashboard?utm_content=gh%2FTilly3g%2Feco-fitness)
+
 
 This is a website where a user can go if they want to become healthier both mentally and physically but also want to help the environment at the same time. They can use the calorie calculator in the food diary to track their eating and book in sessions with fitness experts for meal and exercise plans that include eco friendly swaps.
 
@@ -107,7 +109,7 @@ More information on this test can be found [here](https://tools.pingdom.com/#5d8
 
 I also tested for known vulnerabilities within my dependencies using [snyk](https://snyk.io/) and found that within all the dependencies used there are no known vulnerabilites. This means the website is secure with regards to the dependencies.
 
-I also tested the code quality with [deepcode](https://www.deepcode.ai/). I made a couple of adjustments from the suggestions and now the code seems good quality, with no warnings, only one informational issue and 3 lint issues. More information can be found if you have a deepcode account [here]().
+I also tested the code quality with [deepcode](https://www.deepcode.ai/). I made a couple of adjustments from the suggestions and now the code seems good quality, with no warnings, only one informational issue and 3 lint issues.
 
 Screensizes and Devices:
 

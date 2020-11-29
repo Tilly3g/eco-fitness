@@ -5,11 +5,11 @@ from django.conf import settings
 from django.views.decorators.http import require_POST
 
 from bag.contexts import bag_contents
-from .forms import PaymentForm
-from .models import Payment, OrderLineItem
 from bookings.models import Session
 from profiles.models import UserProfile
 from profiles.forms import UserForm
+from .forms import PaymentForm
+from .models import Payment, OrderLineItem
 
 import stripe
 import json

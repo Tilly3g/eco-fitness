@@ -38,7 +38,7 @@ def remove_from_diary(request, food_id):
         diary = request.session.get('food_diary', {})
 
         diary.pop(food_id)
-        messages.success(request, f'Removed {food.Food} from the calculator')
+        messages.success(request, f'Removed {food.Food} from your food diary')
 
         request.session['food_diary'] = diary
         return HttpResponse(status=200)
