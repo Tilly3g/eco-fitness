@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from os.path import realpath
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -116,16 +117,15 @@ LOGIN_REDIRECT_URL = '/'
 WSGI_APPLICATION = 'eco_fitness.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+Database
+ https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
+ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}
-
+ }
 
 DATABASE_NAME = realpath('database.db')
 
