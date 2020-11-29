@@ -1,0 +1,1 @@
+web: gunicorn eco_fitness.wsgi:application
